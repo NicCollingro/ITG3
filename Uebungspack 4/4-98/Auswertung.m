@@ -11,4 +11,4 @@ plot(Zeit, Vstell)
 xlabel('Zeit t in [s]');
 ylabel('Stellwert');
 ylim([0, max(Vstell)+5]);
-title('PT1-Regler Wasserreservoir');
+title('PID-Regler Wasserreservoir');
