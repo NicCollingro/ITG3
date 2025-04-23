@@ -23,7 +23,7 @@ while Vsoll!=999999:
 
     # Variablen fuer verschiedene Regler-Typen
     abw = Vsoll - Vist
-    abw = 50 #für Sprungantwort
+    #abw = 50 #für Sprungantwort
     sum = sum + abw
     dif = abw - abwalt
     abwalt = abw
@@ -52,7 +52,7 @@ while Vsoll!=999999:
     print ("Stellgroesse: "+ str(Vstell))
     f_stell.close()
 
-    ti.sleep(0.12)
+    ti.sleep(0.1)
   except Exception as e:
     print("Fehler im Regler:", e)
     # Falls konkurrierender Zugriff auf Files

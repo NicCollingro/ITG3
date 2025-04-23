@@ -7,8 +7,12 @@ Vsoll = data(:,2);
 Vist = data(:,3);
 Vstell = data(:,4);
 
-plot(Zeit, Vstell)
+plot(Zeit, Vstell, Color='red')
+hold on
+plot(Zeit, Vsoll, Color='blue')
+plot(Zeit, Vist, Color='black')
 xlabel('Zeit t in [s]');
-ylabel('Stellwert');
+ylabel('Stell-/Soll-/Istwert');
 ylim([0, max(Vstell)+5]);
 title('PID-Regler Wasserreservoir');
+hold off;
