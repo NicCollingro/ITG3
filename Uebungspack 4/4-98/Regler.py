@@ -47,7 +47,7 @@ while Vsoll!=999999:
     # Ausgabe
     f_stell = open(fn_stell,"w+")
     print >> f_stell, Vstell
-    print "Stellgroesse: ", Vstell
+    print >> "Stellgroesse: ", Vstell
     f_stell.close()
 
     ti.sleep(0.1)
