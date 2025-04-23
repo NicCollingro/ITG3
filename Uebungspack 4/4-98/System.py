@@ -59,7 +59,7 @@ while Vsoll!=999999:		# Ende-Bedingung in "system_soll.dat"
     f_ist.close()
     f_soll.close()
 
-    ti.sleep(0.5)
+    ti.sleep(0.1)
   except:
     True			# Falls konkurrierender Zugriff auf Files
     
