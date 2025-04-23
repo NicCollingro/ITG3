@@ -34,13 +34,13 @@ while Vsoll!=999999:
     #Vstell = 0.5*abw
     
     # PT1-Regler
-    Vstell = 0.1*abw + 0.9 * Vstell
+    #Vstell = 0.1*abw + 0.9 * Vstell
     
     # PI-Regler
     #Vstell = 0.2*abw + 0.01*sum
     
     # PID-Regler
-    #Vstell = 0.2*abw + 0.01 * sum + dif
+    Vstell = 0.2*abw + 0.01 * sum + dif
 
     # Stellgroesse beschraenken auf [-100..100]
     if Vstell>+100: Vstell=+100
@@ -52,7 +52,7 @@ while Vsoll!=999999:
     print ("Stellgroesse: "+ str(Vstell))
     f_stell.close()
 
-    ti.sleep(0.11)
+    ti.sleep(0.12)
   except Exception as e:
     print("Fehler im Regler:", e)
     # Falls konkurrierender Zugriff auf Files
