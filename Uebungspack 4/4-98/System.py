@@ -1,5 +1,6 @@
 import datetime as dt
 import time as ti
+import numpy as np
 
 # Start- und Default-Werte
 Vist   = 50
@@ -36,21 +37,15 @@ while Vsoll!=999999:		# Ende-Bedingung in "system_soll.dat"
 
 
     # System 1: Wasserreservoir
-    # Vist = Wasserstand
-    # Vstell = Zulauf/Abluaf
-    # Wasserstand = Wasserstand + Zulauf/Ablauf
-    ...
+    Vist = max(0, Vist + 0.1*Vstell)
         
     # System 2: rotierende traege Scheibe
-    # Vist = Motordrehzahl
-    # Drehzahl = Antrieb - Reibung
-    ...
+    #Vist = 2*Vstell - 0.1*Vist
     
     # System 3: heizbarer Metallblock mit Abkuehlung
-    # Vist = Temperatur
-    # Vstell = Heizrate (>0)
-    # Temperatur = Temperatur + Heizrate - Abkuehlung
-    ...
+    Tmax = 300
+    Tmin = 20
+    # Vist = Vist + 0.001 * (Tmax - Vist)*max(0, Vstell)- 0.05*max(0,Vist-Tmin)
 
     # Ausgabe und Abspeichern der Daten
     f_log = open(fn_log,"a")
