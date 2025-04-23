@@ -31,10 +31,10 @@ while Vsoll!=999999:
     #gleichungen aus Aufgabenstellung
 
     # P-Regler
-    Vstell = 0.5*abw
+    #Vstell = 0.5*abw
     
     # PT1-Regler
-    #Vstell = 0.1*abw + 0.9 * sum
+    Vstell = 0.1*abw + 0.9 * sum
     
     # PI-Regler
     #Vstell = 0.2*abw + 0.01*sum
@@ -49,9 +49,10 @@ while Vsoll!=999999:
     # Ausgabe
     f_stell = open(fn_stell,"w+")
     print(Vstell, file=f_stell)
-    print ("Stellgroesse: "+ Vstell)
+    print ("Stellgroesse: "+ str(Vstell))
     f_stell.close()
 
     ti.sleep(0.1)
-  except:
-    True                        # Falls konkurrierender Zugriff auf Files
+  except Exception as e:
+    print("Fehler im Regler:", e)
+    # Falls konkurrierender Zugriff auf Files

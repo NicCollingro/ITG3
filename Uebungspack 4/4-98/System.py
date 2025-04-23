@@ -1,6 +1,5 @@
 import datetime as dt
 import time as ti
-import numpy as np
 
 # Start- und Default-Werte
 Vist   = 50
@@ -60,7 +59,7 @@ while Vsoll!=999999:		# Ende-Bedingung in "system_soll.dat"
     f_ist.close()
     f_soll.close()
 
-    ti.sleep(0.1)
+    ti.sleep(0.5)
   except:
     True			# Falls konkurrierender Zugriff auf Files
     
