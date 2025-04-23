@@ -59,7 +59,7 @@ while Vsoll!=999999:		# Ende-Bedingung in "system_soll.dat"
     t1 = float((dt.datetime.now()-dt.datetime(1970,1,1)).total_seconds())
     print >> f_ist, Vist
     print >> f_log, t1-t0, Vsoll, Vist, Vstell
-    print t1-t0, Vsoll, Vist, Vstell
+    print >> t1-t0, Vsoll, Vist, Vstell
     Vsoll = float(f_soll.readline().split()[0])
     f_log.close()
     f_ist.close()
