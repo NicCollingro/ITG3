@@ -3,11 +3,12 @@ clear all;
 data = readmatrix('C:\Users\NicCo\Documents\ITG3\Uebungspack 4\4-98\system_all.dat', 'Delimiter', ' ');
 
 Zeit = data(:,1);
-abw = data(:,2);
+Vsoll = data(:,2);
 Vist = data(:,3);
-Vsoll = data(:,4);
+Vstell = data(:,4);
 
-plot(Zeit, Vist)
+plot(Zeit, Vstell)
 xlabel('Zeit t in [s]');
-ylabel('Vist');
-title('PI-Regler Wasserreservoir');
+ylabel('Stellwert');
+ylim([0, max(Vstell)+5]);
+title('PT1-Regler Wasserreservoir');
