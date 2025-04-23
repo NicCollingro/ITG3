@@ -27,18 +27,19 @@ while Vsoll!=999999:
     dif = abw - abwalt
     abwalt = abw
 
+    #gleichungen aus Aufgabenstellung
 
     # P-Regler
-    ...
+    Vstell = 0.5*abw
     
     # PT1-Regler
-    ...
+    #Vstell = 0.1*abw + 0.9 * sum
     
     # PI-Regler
-    ...
+    #Vstell = 0.2*abw + 0.01*sum
     
     # PID-Regler
-    ...
+    #Vstell = 0.2*abw + 0.01 * sum + dif
 
     # Stellgroesse beschraenken auf [-100..100]
     if Vstell>+100: Vstell=+100
@@ -46,8 +47,8 @@ while Vsoll!=999999:
 
     # Ausgabe
     f_stell = open(fn_stell,"w+")
-    print >> f_stell, Vstell
-    print >> "Stellgroesse: ", Vstell
+    print(Vstell, file=f_stell)
+    print ("Stellgroesse: "+ Vstell)
     f_stell.close()
 
     ti.sleep(0.1)
