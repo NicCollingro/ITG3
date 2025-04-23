@@ -1,0 +1,71 @@
+import datetime as dt
+import time as ti
+
+# Start- und Default-Werte
+Vist   = 50
+Vsoll  = 50
+Vstell = 0
+
+# Dateinamen fuer Kommunikation mit Regler
+fn_ist   = "system_ist.dat"
+fn_soll  = "system_soll.dat"
+fn_stell = "system_stell.dat"
+fn_log   = "system_all.dat"
+
+f_ist   = open(fn_ist,"w+")
+f_soll  = open(fn_soll,"w+")
+f_stell = open(fn_stell,"w+")
+f_log   = open(fn_log,"w+")
+print >> f_ist, Vist
+print >> f_soll, Vsoll
+print >> f_stell, Vstell
+f_ist.close()
+f_soll.close()
+f_stell.close()
+f_log.close()
+
+# fuer die Zeitausgabe in ns
+t0 = float((dt.datetime.now()-dt.datetime(1970,1,1)).total_seconds())
+
+while Vsoll!=999999:		# Ende-Bedingung in "system_soll.dat"
+  try:
+    # Einlesen des Stellwerts
+    f_stell = open(fn_stell,"r+")
+    Vstell = float(f_stell.readline().split()[0])
+    f_stell.close()
+
+
+    # System 1: Wasserreservoir
+    # Vist = Wasserstand
+    # Vstell = Zulauf/Abluaf
+    # Wasserstand = Wasserstand + Zulauf/Ablauf
+    ...
+        
+    # System 2: rotierende traege Scheibe
+    # Vist = Motordrehzahl
+    # Drehzahl = Antrieb - Reibung
+    ...
+    
+    # System 3: heizbarer Metallblock mit Abkuehlung
+    # Vist = Temperatur
+    # Vstell = Heizrate (>0)
+    # Temperatur = Temperatur + Heizrate - Abkuehlung
+    ...
+
+    # Ausgabe und Abspeichern der Daten
+    f_log = open(fn_log,"a")
+    f_ist = open(fn_ist, "w+")
+    f_soll = open(fn_soll,"r+")
+    t1 = float((dt.datetime.now()-dt.datetime(1970,1,1)).total_seconds())
+    print >> f_ist, Vist
+    print >> f_log, t1-t0, Vsoll, Vist, Vstell
+    print t1-t0, Vsoll, Vist, Vstell
+    Vsoll = float(f_soll.readline().split()[0])
+    f_log.close()
+    f_ist.close()
+    f_soll.close()
+
+    ti.sleep(0.1)
+  except:
+    True			# Falls konkurrierender Zugriff auf Files
+    
