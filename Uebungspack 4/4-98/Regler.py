@@ -23,6 +23,7 @@ while Vsoll!=999999:
 
     # Variablen fuer verschiedene Regler-Typen
     abw = Vsoll - Vist
+    abw = 50 #für Sprungantwort
     sum = sum + abw
     dif = abw - abwalt
     abwalt = abw
