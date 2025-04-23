@@ -4,10 +4,4 @@ data = readmatrix('C:\Users\NicCo\Documents\ITG3\Uebungspack 4\4-98\system_all.d
 
 Zeit = data(:,1);
 abw = data(:,2);
-Vist = data(:,3);
-Vsoll = data(:,4);
-
-plot(Zeit, Vist)
-xlabel('Zeit t in [s]');
-ylabel('Vist');
-title('PI-Regler Wasserreservoir');
+Vist = data()
