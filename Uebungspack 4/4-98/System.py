@@ -17,9 +17,9 @@ f_ist   = open(fn_ist,"w+")
 f_soll  = open(fn_soll,"w+")
 f_stell = open(fn_stell,"w+")
 f_log   = open(fn_log,"w+")
-print >> f_ist, Vist
-print >> f_soll, Vsoll
-print >> f_stell, Vstell
+print(Vist, file=f_ist)
+print(Vsoll, file=f_soll)
+print(Vstell, file=f_stell)
 f_ist.close()
 f_soll.close()
 f_stell.close()
@@ -53,8 +53,9 @@ while Vsoll!=999999:		# Ende-Bedingung in "system_soll.dat"
     f_soll = open(fn_soll,"r+")
     t1 = float((dt.datetime.now()-dt.datetime(1970,1,1)).total_seconds())
     print >> f_ist, Vist
-    print >> f_log, t1-t0, Vsoll, Vist, Vstell
-    print >> t1-t0, Vsoll, Vist, Vstell
+    print(Vist, file=f_ist)
+    print(t1 - t0, Vsoll, Vist, Vstell, file=f_log)
+    print(t1 - t0, Vsoll, Vist, Vstell)
     Vsoll = float(f_soll.readline().split()[0])
     f_log.close()
     f_ist.close()
