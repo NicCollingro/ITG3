@@ -44,7 +44,7 @@ while Vsoll!=999999:		# Ende-Bedingung in "system_soll.dat"
     # System 3: heizbarer Metallblock mit Abkuehlung
     Tmax = 300
     Tmin = 20
-    # Vist = Vist + 0.001 * (Tmax - Vist)*max(0, Vstell)- 0.05*max(0,Vist-Tmin)
+    #Vist = Vist + 0.001 * (Tmax - Vist)*max(0, Vstell)- 0.05*max(0,Vist-Tmin)
 
     # Ausgabe und Abspeichern der Daten
     f_log = open(fn_log,"a")

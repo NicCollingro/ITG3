@@ -1,0 +1,1 @@
+Zu Teilaufgabe 3 habe ich zwar die Änderung im Sinus geschrieben, allerdings habe ich keine Ahnung was ich hier hätte anders machen müssen, evtl. länger einpendeln lassen.
