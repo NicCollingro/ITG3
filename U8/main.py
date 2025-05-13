@@ -1,5 +1,7 @@
 import time as t
+import math as m
 
+start = t.time()
 clock_delay = 0
 clk = 0
 
@@ -28,6 +30,7 @@ class DFF():
         if clk == 1 & clock_delay == 0:
             Q = D
             return D
+        elif clk !=1 | clk != 0: return ValueError
         else:
             return Q
 
@@ -44,5 +47,18 @@ class REG:
     def reg(self,val):
         return val
     
-
-
+class AND:
+    def __init__(self):
+        pass
+    
+class OR:
+    def __init__(self):
+        pass
+    
+class XOR:
+    def __init__(self):
+        pass
+    
+class NOT:
+    def __init__(self):
+        pass
