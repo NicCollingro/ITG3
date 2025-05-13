@@ -1,30 +1,37 @@
 import numpy as np
-import time as t 
+import time as t
 
-Q_Global_D_Latch = 0
-Q_Global_D_FlipFlop = 0
 clock_delay = 0
 clk = 0
-zp = 0
 
-class bauelement:
-    def D_Latch(self,D, E):
+class DL:
+    def __init__(self,D,E):
+        self.D = D
+        self.E = E
+        Q = 0
+
+    def D_Latch(self,D, E,Q):
         if E == 0:
-            return Q_Global_D_Latch
+            return Q
         elif E == 1:
-            Q_Global_D_Latch = D
+            Q = D
             return D
         else:
             return ValueError
-    def D_FlipFlop(self,D, clk):
-        if clock_delay == 0 & clk == 1:
-            Q_Global_D_FlipFlop = D
+
+class DFF():
+    def __init__(self,D,clk):
+        self.D = D
+        self.clk = clk
+        Q = 0
+         
+    def flipflop(self,D ,clk, Q):
+        if clk == 1 & clock_delay == 0:
+            Q = D
             return D
-        elif D != 1 | D!= 0:
-            return ValueError
         else:
-            return Q_Global_D_FlipFlop
-        
+            return Q
+
 class wire:
     def wire(self,state):
         if state == 0:
@@ -34,6 +41,9 @@ class wire:
         else:
             return ValueError
     
-class register:
-    def register(val):
-      zp = val
+
+      
+def main():
+    B1 = DL(1, 1)
+    return
+
