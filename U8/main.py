@@ -44,21 +44,44 @@ class WIRE:
 class REG:
     def __init__(self,val):
         self.val = val
+
     def reg(self,val):
         return val
     
 class AND:
-    def __init__(self):
-        pass
+    def __init__(self, x,y):
+        self.x = x
+        self.y = y
+    
+    def und(x,y):
+        if x == y:
+            return x
+        else:return 0
     
 class OR:
-    def __init__(self):
-        pass
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y
+
+    def oder(x,y):
+        if x == y & x == 0:
+            return x
+        else: return 1
     
 class XOR:
-    def __init__(self):
-        pass
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y
+    
+    def xor(x,y):
+        if x != y:
+            return 1
+        else:return 0
     
 class NOT:
-    def __init__(self):
-        pass
+    def __init__(self,x):
+        this.x = x
+
+    def nicht(x):
+        if x == 0:return 1
+        else: return 0
