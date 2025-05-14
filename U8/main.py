@@ -96,7 +96,7 @@ class XOR:
     
 class NOT:
     def __init__(self,x):
-        this.x = x
+        self.x = x
 
     def nicht(x):
         if x == 0:return 1
