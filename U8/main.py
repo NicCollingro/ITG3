@@ -1,15 +1,12 @@
 import time as t
 import math as m
 
-start = t.time()
 clock_delay = 0
 clk = 0
 
 class DL:
-    def __init__(self, D, E):
-        self.D = D
-        self.E = E
-        Q = 0
+    def __init__(self):
+        self.Q = 0
 
     def D_Latch(D, E, Q):
         if E == 0:
@@ -21,10 +18,8 @@ class DL:
             return ValueError
 
 class DFF():
-    def __init__(self,D,clk):
-        self.D = D
-        self.clk = clk
-        Q = 0
+    def __init__(self):
+        self.Q = 0
 
     def flipflop(D ,clk, Q):
         if clk == 1 & clock_delay == 0:
@@ -89,23 +84,23 @@ class NOT:
         else: return 0
         
 class WIRE:
-    def __init__(self, list):
-        list = []
+    def __init__(self):
+        self.liste = []
     
-    def wire(list):
-        return list
+    def wire(self):
+        return self.liste
     
-    def add_and(und):
-        list.append(und)
+    def add_and(self,und):
+        self.liste.append(und)
         
-    def add_or(oder):
-        list.append(oder)
+    def add_or(self,oder):
+        self.liste.append(oder)
         
-    def add_xor(xor):
-        list.append(xor)
+    def add_xor(self,xor):
+        self.liste.append(xor)
         
-    def add_not(nicht):
-        list.append(nicht)
+    def add_not(self,nicht):
+        self.liste.append(nicht)
 
 class REG:
     def __init__(self,val):
@@ -113,3 +108,4 @@ class REG:
 
     def reg(self,val):
         return val
+
