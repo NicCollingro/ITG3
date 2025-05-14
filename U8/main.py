@@ -16,6 +16,9 @@ def clock():
     x = 0        
     while (x != 50000):
         taktgenerator
+        l=0
+        while (l != 500): l = l + 1  # positive und negative flanke
+        clock_delay = clk
          
 class DL:
     def __init__(self):
@@ -102,7 +105,7 @@ class XOR:
         else:return 0
 
     def xor3(x,y,z):
-        #TODO
+        #TODO                            # unklar wie man 3 input xor-en soll bei 0 und 1 is ja dann immer falsch oder nicht ???
         pass
     
 class NOT:
