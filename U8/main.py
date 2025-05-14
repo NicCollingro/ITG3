@@ -1,8 +1,8 @@
 import time as t
 import math as m
 
-clock_delay = 0
-clk = 0
+clock_delay = 0 # Keine Ahnung wie ich diese positive flancke programmiere also hab ich einfach ne verzügerung eingebaut is
+clk = 0         # zumindest physikalisch kein kompletter humbuk
 
 class DL:
     def __init__(self):
@@ -55,7 +55,7 @@ class REG:
     def reg(self,val):
         return val
 ########################################################################################################################
-# Das hier ist 133 glaube das sollte alles sein 
+# Das hier ist 133 glaube das sollte alles sein
 ########################################################################################################################
 class AND:
     
