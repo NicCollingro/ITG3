@@ -28,6 +28,32 @@ class DFF():
         elif clk !=1 | clk != 0: return ValueError
         else:
             return Q
+        
+class WIRE:
+    def __init__(self):
+        self.liste = []
+    
+    def wire(self):
+        return self.liste
+    
+    def add_and(self,und):
+        self.liste.append(und)
+        
+    def add_or(self,oder):
+        self.liste.append(oder)
+        
+    def add_xor(self,xor):
+        self.liste.append(xor)
+        
+    def add_not(self,nicht):
+        self.liste.append(nicht)
+
+class REG:
+    def __init__(self,val):
+        self.val = val
+
+    def reg(self,val):
+        return val
     
 class AND:
     
