@@ -30,10 +30,6 @@ class DFF():
             return Q
     
 class AND:
-    def __init__(self, x,y,z):
-        self.x = x
-        self.y = y
-        self.z = z
     
     def und2(x,y):
         if x == y:
@@ -46,10 +42,7 @@ class AND:
         else:return 0
 
 class OR:
-    def __init__(self,x,y,z):
-        self.x = x
-        self.y = y
-
+    
     def oder2(x,y):
         if x == y & x == 0:
             return x
@@ -61,10 +54,6 @@ class OR:
         else: return 1
     
 class XOR:
-    def __init__(self,x,y,z):
-        self.x = x
-        self.y = y
-        self.z = z
     
     def xor2(x,y):
         if x != y:
@@ -76,9 +65,6 @@ class XOR:
         pass
     
 class NOT:
-    def __init__(self,x):
-        self.x = x
-
     def nicht(x):
         if x == 0:return 1
         else: return 0
