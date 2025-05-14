@@ -4,6 +4,19 @@ import math as m
 clock_delay = 0 # Keine Ahnung wie ich diese positive flancke programmiere also hab ich einfach ne verzügerung eingebaut is
 clk = 0         # zumindest physikalisch kein kompletter humbuk
 
+def taktgenerator():
+    x = 0
+    while (x != 50000):
+        x = x + 1
+    if clk == 0:
+        clk = 1
+    else: clk == 0
+        
+def clock():
+    x = 0        
+    while (x != 50000):
+        taktgenerator
+         
 class DL:
     def __init__(self):
         self.Q = 0
