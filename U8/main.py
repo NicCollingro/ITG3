@@ -33,20 +33,6 @@ class DFF():
         elif clk !=1 | clk != 0: return ValueError
         else:
             return Q
-
-class WIRE:
-    def __init__(self,state):
-        self.state = state
-    
-    def wire(state):
-        return state
-
-class REG:
-    def __init__(self,val):
-        self.val = val
-
-    def reg(self,val):
-        return val
     
 class AND:
     def __init__(self, x,y,z):
@@ -101,3 +87,29 @@ class NOT:
     def nicht(x):
         if x == 0:return 1
         else: return 0
+        
+class WIRE:
+    def __init__(self, list):
+        list = []
+    
+    def wire(list):
+        return list
+    
+    def add_and(und):
+        list.append(und)
+        
+    def add_or(oder):
+        list.append(oder)
+        
+    def add_xor(xor):
+        list.append(xor)
+        
+    def add_not(nicht):
+        list.append(nicht)
+
+class REG:
+    def __init__(self,val):
+        self.val = val
+
+    def reg(self,val):
+        return val
