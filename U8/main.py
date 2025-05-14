@@ -49,34 +49,50 @@ class REG:
         return val
     
 class AND:
-    def __init__(self, x,y):
+    def __init__(self, x,y,z):
         self.x = x
         self.y = y
+        self.z = z
     
-    def und(x,y):
+    def und2(x,y):
         if x == y:
             return x
         else:return 0
     
+    def und3(x,y,z):
+        if x == y & y == z:
+            return x
+        else:return 0
+
 class OR:
-    def __init__(self,x,y):
+    def __init__(self,x,y,z):
         self.x = x
         self.y = y
 
-    def oder(x,y):
+    def oder2(x,y):
         if x == y & x == 0:
+            return x
+        else: return 1
+
+    def oder3(x,y,z):
+        if x == y == z & x == 0:
             return x
         else: return 1
     
 class XOR:
-    def __init__(self,x,y):
+    def __init__(self,x,y,z):
         self.x = x
         self.y = y
+        self.z = z
     
-    def xor(x,y):
+    def xor2(x,y):
         if x != y:
             return 1
         else:return 0
+
+    def xor3(x,y,z):
+        #TODO
+        pass
     
 class NOT:
     def __init__(self,x):
