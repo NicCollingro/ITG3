@@ -31,5 +31,5 @@ def volladdierer(x,y ,cin):             #einfach den schaltvorgang vom Addierer 
     q = b.xor2(reg2.val,cin)
     return q, cout
 
-q, cout =(volladdierer(1,1,0))
+q, cout =(volladdierer(1,1,1))
 print(q,cout)
