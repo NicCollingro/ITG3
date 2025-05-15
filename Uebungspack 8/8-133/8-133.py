@@ -1,3 +1,5 @@
+import time as t
+
 # Zur idee hinter der Funktionsweise: Jedes Gate hat input und output Wires, die je nach Gate unterschiedlich voneinander abhängen.
 # Dabei ist pegel 0 äquivalent zu False und pegel 1 äquivalent zu true werden aber hier als Zahlen dargestellt, die operationen dann gleich der Boolschen algebra ist. z.b. AND = a*b
 
@@ -97,10 +99,8 @@ class XOR:
     def update(self):
         self.output.writeState((self.input1.readState() + self.input2.readState()) % 2)
 
-Wire1 = Wire()
-Wire1.writeState(0)
-Wire2 = Wire()
-Wire2.writeState(0)
-Wire3 = Wire()
-Gate = XOR(Wire1, Wire2, Wire3)
-print(Wire3.readState())
+#hier implementiere ich die Clock
+startTime = t.time()
+
+def clock():
+    return int((t.time() - startTime)/1000)%2 #Clock wechselt alle sekunde den pegel zwischen 0 und 1
