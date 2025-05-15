@@ -1,6 +1,9 @@
 import main
 import time as t
 
+x = 0
+y = 0
+cin = 0
 start = t.time()
 clock_delay = 0
 clk = 0
@@ -31,5 +34,5 @@ def volladdierer(x,y ,cin):             #einfach den schaltvorgang vom Addierer 
     q = b.xor2(reg2.val,cin)
     return q, cout
 
-q, cout =(volladdierer(1,1,1))
+q, cout =(volladdierer(x,y,cin))
 print(q,cout)
