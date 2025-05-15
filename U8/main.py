@@ -88,9 +88,11 @@ class AND:
 class OR:
     
     def oder2(self,x,y):
-        if x == y & x == 0:
-            return x
-        else: return 1
+        if x != y:return 1
+        else:
+            if x == 1:
+                return 1
+            else: return 0
 
     def oder3(self,x,y,z):
         if x == y == z & x == 0:
