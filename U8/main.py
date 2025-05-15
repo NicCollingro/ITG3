@@ -75,36 +75,36 @@ class REG:
 ########################################################################################################################
 class AND:
     
-    def und2(x,y):
+    def und2(self,x,y):
         if x == y:
             return x
         else:return 0
     
-    def und3(x,y,z):
+    def und3(self,x,y,z):
         if x == y & y == z:
             return x
         else:return 0
 
 class OR:
     
-    def oder2(x,y):
+    def oder2(self,x,y):
         if x == y & x == 0:
             return x
         else: return 1
 
-    def oder3(x,y,z):
+    def oder3(self,x,y,z):
         if x == y == z & x == 0:
             return x
         else: return 1
     
 class XOR:
     
-    def xor2(x,y):
+    def xor2(self,x,y):
         if x != y:
             return 1
         else:return 0
 
-    def xor3(x,y,z):
+    def xor3(self,x,y,z):
         #TODO                            # unklar wie man 3 input xor-en soll bei 0 und 1 is ja dann immer falsch oder nicht ???
         pass
     
