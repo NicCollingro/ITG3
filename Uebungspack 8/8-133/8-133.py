@@ -44,20 +44,6 @@ class AND:
     def update(self):
         self.output.writeState(self.input1.readState() * self.input2.readState())
 
-class AND3Inputs:       # Da in der aufgabenstellung ein 3 Input gate gefragt war habe ich hier eins implementiert, brauche ich aber nicht
-    def __init__(self, inputWire1, inputWire2, inputWire3, OutputWire):
-        self.input1 = inputWire1
-        self.input2 = inputWire2
-        self.input3 = inputWire3
-        self.output = OutputWire
-        self.input1.connect(self)
-        self.input2.connect(self)
-        self.input3.connect(self)
-        self.update()
-
-    def update(self):
-        self.output.writeState(self.input1.readState() * self.input2.readState() * self.input3.readState())
-
 class NAND:
     def __init__(self, inputWire1, inputWire2, OutputWire):
         self.input1 = inputWire1
