@@ -1,4 +1,4 @@
-#Da wir in 8-133 die vorarbeit geleistet haben, muss ich den code nur copy paste und dann noch den Volladdierer Implementieren
+#Da wir in 8-133 die vorarbeit geleistet haben, kopiere ich die Gates die zum Aufbau benötigt werden aus 8-133 um dann noch den Volladdierer Implementieren
 
 import time as t
 
@@ -92,3 +92,27 @@ startTime = t.time()
 
 def clock():
     return int((t.time() - startTime)/1000)%2
+
+#Ab hier erstelle ich den Volladdierer nach dem Schaltplan aus dem GP-Versuch: Digitalelektronik
+
+X = Wire()
+Y = Wire()
+C_IN = Wire()
+
+X.writeState(1)         #Werte eintragen
+Y.writeState(1)
+C_IN.writeState(1)
+
+#Volladdierer
+C_out_AND = Wire()
+XOR1_out = Wire()
+C_out_AND2 = Wire()
+C_OUT = Wire()
+S = Wire()
+AND(X, Y, C_out_AND)
+XOR(X, Y, XOR1_out)
+AND(C_IN, XOR1_out, C_out_AND2)
+OR(C_out_AND, C_out_AND2, C_OUT)
+XOR(C_IN, XOR1_out, S)
+
+print(str(C_OUT.readState()) + " " + str(S.readState()) )
