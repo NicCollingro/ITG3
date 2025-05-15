@@ -26,12 +26,12 @@ def volladdierer(x,y ,cin):             #einfach den schaltvorgang vom Addierer 
     q = b.xor2[x,y]                     #Problem von python unklar
     reg2 = main.REG(q)
     b = s[0]
-    q = b.und2(cin,reg2)
+    q = b.und2(cin,reg2.val)
     reg3 = main.REG(q)
     b = s[1]
-    cout = b.oder2(reg3,reg1)
+    cout = b.oder2(reg3.val,reg1.val)
     b = s[3]
-    q = b.xor2(reg2,cin)
+    q = b.xor2(reg2.val,cin)
     return q, cout
 
 q, cout =(volladdierer(0,0,0))
