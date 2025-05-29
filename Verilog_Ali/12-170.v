@@ -1,12 +1,11 @@
 // TOPLEVEL oberstes Modul (oder ist mit toplevel sowas wie das int main(); in C gemeint ?) 
 module schaltung (clk, s,t,u);
     input clk;
-    output reg s = 0,t = 0,u = 0;
+    output reg s = 1,t = 0,u = 0;
     reg y;
     always @(posedge clk) begin
-    y <= s ^ t ^ u;
-    s <= y;
-    t <= y | u;
+    s <= (s ^ t ^ u);
+    t <= (s ^ t ^ u) | u;
     u <= t;
     end
 endmodule
