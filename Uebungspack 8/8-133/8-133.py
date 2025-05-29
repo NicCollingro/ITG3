@@ -55,7 +55,9 @@ class NAND:
         self.update()
 
     def update(self):
+        #print(self.output.readState())
         self.output.writeState((self.input1.readState() * self.input2.readState() - 1) % 2)
+        #print(self.output.readState())
 
 class OR:
     def __init__(self, inputWire1, inputWire2, OutputWire):
@@ -104,21 +106,29 @@ class DL:
     def __init__(self, inputWire1, inputWire2, OutputWire1, OutputWire2):
         self.input1 = inputWire1
         self.input2 = inputWire2
-        self.input1.connect(self)
-        self.input2.connect(self)
         self.UpperWire = Wire()
         self.LowerWire = Wire()
         self.UpperWire2 = OutputWire1
         self.LowerWire2 = OutputWire2
-        self.update()
 
-    def update(self):
         NAND(self.input1, self.input2, self.UpperWire)
         NAND(self.input2, self.UpperWire, self.LowerWire)
-        NAND(self.UpperWire, self.LowerWire, self.UpperWire2)
+        NAND(self.UpperWire, self.LowerWire2, self.UpperWire2)
         NAND(self.LowerWire, self.UpperWire2, self.LowerWire2)
-
-
 #hier implementiere ich die Clock
 def clock():
     return int((t.time() - startTime)/1000)%2 #Clock wechselt alle sekunde den pegel zwischen 0 und 1
+
+D = Wire()
+E = Wire()
+Q = Wire()
+NQ = Wire()
+
+DL(D, E, Q, NQ)
+Q.writeState(0)
+#TestFunction
+for i in 0,0,0,1,1,1,0:
+    for j in 1,1,0,0,0,1,1:
+        D.writeState(i)
+        E.writeState(j)
+        print(str(D.readState()) + " " + str(E.readState()) + " | " + str(Q.readState()))
