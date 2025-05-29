@@ -55,7 +55,9 @@ class NAND:
         self.update()
 
     def update(self):
+        #print(self.output.readState())
         self.output.writeState((self.input1.readState() * self.input2.readState() - 1) % 2)
+        #print(self.output.readState())
 
 class OR:
     def __init__(self, inputWire1, inputWire2, OutputWire):
@@ -101,43 +103,32 @@ class XOR:
         self.output.writeState((self.input1.readState() + self.input2.readState()) % 2)
 
 class DL:
-    def __init__(self, D, E, Q):
-        self.D = D
-        self.E = E
-        self.Q = Q
-        self.E.connect(self)
-        self.update()
+    def __init__(self, inputWire1, inputWire2, OutputWire1, OutputWire2):
+        self.input1 = inputWire1
+        self.input2 = inputWire2
+        self.UpperWire = Wire()
+        self.LowerWire = Wire()
+        self.UpperWire2 = OutputWire1
+        self.LowerWire2 = OutputWire2
 
-    def update(self):
-        if self.E.readState() == 1:
-            self.Q.writeState(self.D.readState())
-
-class DFF:
-    def __init__(self, D, CLK, Q):
-        self.D = D
-        self.CLK = CLK
-        self.Q = Q
-        self.CLK.connect(self) #nur clock interessant da wenn sich d änder nichts passieren soll, außer clock änder sich
-        self.update()
-
-    def update(self):
-        if self.CLK.readState() == 1:
-            self.Q.writeState(self.D.readState())
-
+        NAND(self.input1, self.input2, self.UpperWire)
+        NAND(self.input2, self.UpperWire, self.LowerWire)
+        NAND(self.UpperWire, self.LowerWire2, self.UpperWire2)
+        NAND(self.LowerWire, self.UpperWire2, self.LowerWire2)
 #hier implementiere ich die Clock
 def clock():
     return int((t.time() - startTime)/1000)%2 #Clock wechselt alle sekunde den pegel zwischen 0 und 1
 
-#Check Code
-
 D = Wire()
-Clock = Wire()
+E = Wire()
 Q = Wire()
+NQ = Wire()
 
-DFF(D, Clock, Q)
-
-for i in 0,1,0,1:
-    for j in 0,1,1,0:
+DL(D, E, Q, NQ)
+Q.writeState(0)
+#TestFunction
+for i in 0,0,0,1,1,1,0:
+    for j in 1,1,0,0,0,1,1:
         D.writeState(i)
-        Clock.writeState(j)
-        print(str(i) + "\t" + str(j) + " | " + str(Q.readState()))
+        E.writeState(j)
+        print(str(D.readState()) + " " + str(E.readState()) + " | " + str(Q.readState()))
