@@ -1,0 +1,1 @@
+Keine Ahnung was die Aufgabenstellung zum FPGA sein soll. Sorry
