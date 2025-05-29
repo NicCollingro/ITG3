@@ -1,0 +1,51 @@
+1 // main . v
+2
+3 module blocking ( in , clk , q1 , q2 , q3 ) ;
+4 input in , clk ;
+5 output q1 , q2 , q3 ;
+6 reg q1 , q2 , q3 ;
+7
+8 always @ ( posedge clk ) begin
+9 q1 = in ;
+10 q2 = q1 ;
+11 q3 = q2 ;
+12 end
+13 endmodule
+14
+15
+16 module nonblocking ( in , clk , q1 , q2 , q3 ) ;
+17 input in , clk ;
+18 output q1 , q2 , q3 ;
+19 reg q1 , q2 , q3 ;
+20
+21 always @ ( posedge clk ) begin
+22 q1 <= in ;
+23 q2 <= q1 ;
+24 q3 <= q2 ;
+25 end
+26 endmodule
+27
+28
+29 module top_level ;
+30
+31 initial begin
+32 $monitor ( " % t % b % b % b % b % b % b % b % b " ,
+33 $time , clk , in , b1 , b2 , b3 , n1 , n2 , n3 ) ;
+34 #0 in = 0;
+35 #6 in = 1;
+36 #6 $finish ;
+37 end
+38
+39 // clock signal
+40 reg clk = 0;
+41 always #1 clk = ! clk ;
+42
+43 reg in ;
+44
+45 wire b1 , b2 , b3 ;
+46 blocking B ( in , clk , b1 , b2 , b3 ) ;
+47
+48 wire n1 , n2 , n3 ;
+49 nonblocking N ( in , clk , n1 , n2 , n3 ) ;
+50
+51 endmodule
