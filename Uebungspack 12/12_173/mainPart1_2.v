@@ -22,7 +22,7 @@ module top_level();
 
     //Strukturbeschreibung
 
-    //Die Strukturbeschreibung ist in der Musterlösung genau gleich zur Verhaltensbeschreibung
+    //Die Strukturbeschreibung ist in der Musterlösung genau gleich der Verhaltensbeschreibung
 
 
     initial begin

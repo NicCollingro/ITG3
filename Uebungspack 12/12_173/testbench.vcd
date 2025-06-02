@@ -1,5 +1,5 @@
 $date
-	Sun Jun  1 23:55:10 2025
+	Mon Jun  2 18:46:48 2025
 $end
 $version
 	Icarus Verilog
@@ -22,12 +22,24 @@ $upscope $end
 $scope module top_level $end
 $var reg 1 % green $end
 $upscope $end
+$scope module top_level $end
+$var wire 1 & red2 $end
+$upscope $end
+$scope module top_level $end
+$var wire 1 ' yellow2 $end
+$upscope $end
+$scope module top_level $end
+$var wire 1 ( green2 $end
+$upscope $end
 $enddefinitions $end
 $comment Show the parameter values. $end
 $dumpall
 $end
 #0
 $dumpvars
+0(
+x'
+x&
 0%
 1$
 1#
@@ -40,11 +52,15 @@ $end
 1%
 0$
 0#
+0'
+0&
+x(
 b1 "
 1!
 #3
 0!
 #4
+0'
 b10 "
 1!
 #5
@@ -52,6 +68,8 @@ b10 "
 #6
 0%
 1$
+x'
+0(
 b11 "
 1!
 #7
@@ -64,6 +82,8 @@ b100 "
 #10
 0$
 1#
+0'
+x&
 b101 "
 1!
 #11
@@ -80,6 +100,8 @@ b111 "
 0!
 #16
 1$
+x'
+x&
 b0 "
 1!
 #17
@@ -88,11 +110,15 @@ b0 "
 1%
 0$
 0#
+0'
+0&
+x(
 b1 "
 1!
 #19
 0!
 #20
+0'
 b10 "
 1!
 #21
@@ -100,6 +126,8 @@ b10 "
 #22
 0%
 1$
+x'
+0(
 b11 "
 1!
 #23
@@ -112,6 +140,8 @@ b100 "
 #26
 0$
 1#
+0'
+x&
 b101 "
 1!
 #27
@@ -128,6 +158,8 @@ b111 "
 0!
 #32
 1$
+x'
+x&
 b0 "
 1!
 #33
@@ -136,11 +168,15 @@ b0 "
 1%
 0$
 0#
+0'
+0&
+x(
 b1 "
 1!
 #35
 0!
 #36
+0'
 b10 "
 1!
 #37
@@ -148,6 +184,8 @@ b10 "
 #38
 0%
 1$
+x'
+0(
 b11 "
 1!
 #39
