@@ -1,0 +1,157 @@
+$date
+	Sun Jun  1 23:55:10 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module top_level $end
+$var reg 1 ! clk $end
+$upscope $end
+$scope module top_level $end
+$var reg 3 " cnt [2:0] $end
+$upscope $end
+$scope module top_level $end
+$var reg 1 # red $end
+$upscope $end
+$scope module top_level $end
+$var reg 1 $ yellow $end
+$upscope $end
+$scope module top_level $end
+$var reg 1 % green $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+0%
+1$
+1#
+b0 "
+1!
+$end
+#1
+0!
+#2
+1%
+0$
+0#
+b1 "
+1!
+#3
+0!
+#4
+b10 "
+1!
+#5
+0!
+#6
+0%
+1$
+b11 "
+1!
+#7
+0!
+#8
+b100 "
+1!
+#9
+0!
+#10
+0$
+1#
+b101 "
+1!
+#11
+0!
+#12
+b110 "
+1!
+#13
+0!
+#14
+b111 "
+1!
+#15
+0!
+#16
+1$
+b0 "
+1!
+#17
+0!
+#18
+1%
+0$
+0#
+b1 "
+1!
+#19
+0!
+#20
+b10 "
+1!
+#21
+0!
+#22
+0%
+1$
+b11 "
+1!
+#23
+0!
+#24
+b100 "
+1!
+#25
+0!
+#26
+0$
+1#
+b101 "
+1!
+#27
+0!
+#28
+b110 "
+1!
+#29
+0!
+#30
+b111 "
+1!
+#31
+0!
+#32
+1$
+b0 "
+1!
+#33
+0!
+#34
+1%
+0$
+0#
+b1 "
+1!
+#35
+0!
+#36
+b10 "
+1!
+#37
+0!
+#38
+0%
+1$
+b11 "
+1!
+#39
+0!
+#40
+b100 "
+1!
