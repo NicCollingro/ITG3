@@ -22,7 +22,7 @@ A   B   c_in    c_out   diff
 1   1   1       1       1   +
 
 Offensichtlich ist diff A XOR B XOR C ~> A^B^C
-der carry ist (~A & B) | (~A & ~B & C) | (A & B & C) => (~A & B) | (~(A^B) & C)
+der carry ist (~A & B) | (~A & ~B & C) | (A & B & C) => (~A & B) | (~A & C) | (B & C)
 */
 
 module halfsub(input A, input B, input carry, output reg out_carry, output reg out_diff);
@@ -66,20 +66,54 @@ module sqrt(input [8:0] A, output [8:0] Sqrt);
         : (A >=   4) ?  2 : (A >=   1) ?  1 : 0;
 endmodule
 
+module modifiedSub(input [8:0] A, input [8:0] B, output [8:0] modified_diff, output neg_carry);
+    wire [9:0] carry_intern;
+    wire [8:0] difference;
+    assign carry_intern[0] = 1'b0;
+    genvar i;
+    for (i=0; i < 9; i=i+1) begin : halfsub
+        halfsub S(A[i], B[i], carry_intern[i], carry_intern[i+1], difference[i]);
+    end
+    assign neg_carry = ~carry_intern[9];
+
+    /*always @(*) begin
+        if(carry_intern[8] == 0) begin
+            modified_diff = difference;
+        end
+        else begin
+            modified_diff = A;
+        end
+    end
+    
+    In dem always statement muss modified_diff ein reg sein
+
+    */
+
+    assign modified_diff = carry_intern[8] == 1'b0 ? difference : A;
+endmodule
+
+module division(input [8:0] A, input [8:0] B, output [8:0] modulo, output [8:0] div);
+    wire [8:0] SafeState [0:9];
+    assign SafeState[9] = 9'b0;
+    assign modulo = SafeState[0];
+
+    genvar i;
+    for (i = 8; i >= 0; i=i-1) begin: modifiedSubtract
+        modifiedSub modifiedSubtract({SafeState[i+1][7:0], A[i]}, B, SafeState[i], div[i]); //{SafeState[i+1][7:0], A[i]} Das gibt immer das an was bei vorheriger substr. nich 0 war und hängt den nächsten bit von A hintendran
+    end
+endmodule
 
 module top_level();
-    reg [8:0] A= 25;
-    reg [8:0] B = 256;
+    reg [8:0] A= 23;
+    reg [8:0] B = 9;
     wire [8:0] S;
     wire [8:0] C;
 
-    sqrt Addr(A, S);
+    division D(A, B, C, S);
 
     initial begin
         #1; 
-        $display("%b %f ", S, S);
+        $display("%b %f %b %f", S, S, C, C);
         $finish;
     end
-
-
 endmodule
