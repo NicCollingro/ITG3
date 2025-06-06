@@ -1,0 +1,123 @@
+Flow report for MyProject
+Fri Jun  6 16:18:37 2025
+Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Flow Summary
+  3. Flow Settings
+  4. Flow Non-Default Global Settings
+  5. Flow Elapsed Time
+  6. Flow OS Summary
+  7. Flow Log
+  8. Flow Messages
+  9. Flow Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2020  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
+
+
+
++----------------------------------------------------------------------------------+
+; Flow Summary                                                                     ;
++------------------------------------+---------------------------------------------+
+; Flow Status                        ; Successful - Fri Jun  6 16:18:33 2025       ;
+; Quartus Prime Version              ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
+; Revision Name                      ; MyProject                                   ;
+; Top-level Entity Name              ; top_level                                   ;
+; Family                             ; Cyclone IV E                                ;
+; Total logic elements               ; 48 / 22,320 ( < 1 % )                       ;
+;     Total combinational functions  ; 44 / 22,320 ( < 1 % )                       ;
+;     Dedicated logic registers      ; 48 / 22,320 ( < 1 % )                       ;
+; Total registers                    ; 48                                          ;
+; Total pins                         ; 10 / 154 ( 6 % )                            ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 0 / 608,256 ( 0 % )                         ;
+; Embedded Multiplier 9-bit elements ; 0 / 132 ( 0 % )                             ;
+; Total PLLs                         ; 0 / 4 ( 0 % )                               ;
+; Device                             ; EP4CE22F17C6                                ;
+; Timing Models                      ; Final                                       ;
++------------------------------------+---------------------------------------------+
+
+
++-----------------------------------------+
+; Flow Settings                           ;
++-------------------+---------------------+
+; Option            ; Setting             ;
++-------------------+---------------------+
+; Start date & time ; 06/06/2025 16:18:00 ;
+; Main task         ; Compilation         ;
+; Revision Name     ; MyProject           ;
++-------------------+---------------------+
+
+
++---------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                              ;
++-------------------------------+--------------------------------+---------------+-------------+----------------+
+; Assignment Name               ; Value                          ; Default Value ; Entity Name ; Section Id     ;
++-------------------------------+--------------------------------+---------------+-------------+----------------+
+; COMPILER_SIGNATURE_ID         ; 30905333836621.174921948003106 ; --            ; --          ; --             ;
+; EDA_NETLIST_WRITER_OUTPUT_DIR ; simulation/modelsim            ; --            ; --          ; eda_simulation ;
+; EDA_OUTPUT_DATA_FORMAT        ; Vhdl                           ; --            ; --          ; eda_simulation ;
+; EDA_SIMULATION_TOOL           ; ModelSim-Altera (VHDL)         ; <None>        ; --          ; --             ;
+; EDA_TIME_SCALE                ; 1 ps                           ; --            ; --          ; eda_simulation ;
+; NUM_PARALLEL_PROCESSORS       ; 4                              ; --            ; --          ; --             ;
+; TOP_LEVEL_ENTITY              ; top_level                      ; MyProject     ; --          ; --             ;
++-------------------------------+--------------------------------+---------------+-------------+----------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------+
+; Flow Elapsed Time                                                                                                        ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Analysis & Synthesis ; 00:00:20     ; 1.0                     ; 396 MB              ; 00:00:43                           ;
+; Fitter               ; 00:00:09     ; 1.0                     ; 969 MB              ; 00:00:10                           ;
+; Assembler            ; 00:00:01     ; 1.0                     ; 348 MB              ; 00:00:02                           ;
+; Timing Analyzer      ; 00:00:02     ; 1.0                     ; 491 MB              ; 00:00:02                           ;
+; Total                ; 00:00:32     ; --                      ; --                  ; 00:00:57                           ;
++----------------------+--------------+-------------------------+---------------------+------------------------------------+
+
+
++------------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                          ;
++----------------------+------------------+------------------+------------+----------------+
+; Module Name          ; Machine Hostname ; OS Name          ; OS Version ; Processor type ;
++----------------------+------------------+------------------+------------+----------------+
+; Analysis & Synthesis ; albezin          ; Debian GNU/Linux ; 13         ; x86_64         ;
+; Fitter               ; albezin          ; Debian GNU/Linux ; 13         ; x86_64         ;
+; Assembler            ; albezin          ; Debian GNU/Linux ; 13         ; x86_64         ;
+; Timing Analyzer      ; albezin          ; Debian GNU/Linux ; 13         ; x86_64         ;
++----------------------+------------------+------------------+------------+----------------+
+
+
+------------
+; Flow Log ;
+------------
+quartus_map --no_banner --read_settings_files=on --source=top_level.v MyProject
+quartus_fit --no_banner --part=EP4CE22F17C6 --read_settings_files=on MyProject
+quartus_asm --no_banner MyProject
+quartus_sta --no_banner MyProject
+
+
+
