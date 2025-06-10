@@ -45,7 +45,6 @@ always @(posedge clk)begin
     endcase
     
 end
-
 endmodule
 
 module keypad(input CLOCK_50; output reg [3:0] keycode,
