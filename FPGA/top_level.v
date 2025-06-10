@@ -57,8 +57,6 @@ always @(posedge CLOCK_50) begin
     clk <= clock[20];
 end
 
-
-
 always @(posedge clk) begin
     case (rows)
         4'1110:  rows <= 4'b1101;
