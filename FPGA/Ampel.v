@@ -58,3 +58,31 @@ always @(posedge clock)begin
   */
 end
 endmodule
+
+/*
+output[7:0] led;
+reg [7:0] led;
+reg [26:0 ]clk = 26'd0;
+reg clock;
+always @(posedge CLOCK_50) begin
+    clk <= clk + 26'd1;
+    clock <= clk[24];
+end
+wire [3:0] a;
+wire [3:0] b;
+wire [3:0] x;
+
+
+
+
+
+
+module addierer (
+    input  wire a,
+    input  wire b,
+    input  wire cin,
+    output wire sum,
+    output wire cout
+);
+    assign sum  = a ^ b ^ cin;
+    assign cout = (a & b) | (b & cin) | (a & cin);
