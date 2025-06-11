@@ -1,8 +1,8 @@
-module D_Latch(input wire D, input wire clk, output Q);
+module D_Latch(input wire D, input wire clk, output wire Q);
 wire a;
 wire b;
 
-assign a = !((!D) && clk);
+assign a = !((~D) && clk);
 assign b = !(D && clk);
 
 wire nq;
