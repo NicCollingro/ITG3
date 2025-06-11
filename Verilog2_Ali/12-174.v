@@ -21,26 +21,25 @@ initial begin
     # 10 $finish;
 end
 endmodule
-module FeedbackOszil (input wire clk, output wire x, input wire reset, output wire y, );
-    reg rest;
+
+module FeedbackOszil (input wire clk, output wire ix, input wire rst, output wire y );
     reg D1,D2;
     
     always @(posedge clk) begin         //Habs mal mit nem Multiplexer versucht;
-        case (reset)                    //Der is ja Kombinatorisch
+        case (rst)                      //Der is ja Kombinatorisch
             1'b1: begin                 // wusste aber nicht wie ich
                 D1 <= 0;                // Kombinatorisch die Wire zuweise
-                D2 <= 1;
+                D2 <= 1;                 
             end 
             default: begin
                 D1 <= y;
-                D2 <= x;
+                D2 <= ix;
             end
         endcase
 
     end
 
-    D_FlipFlop flotti  (.D(D1), .clk(clk), .Q(x));
+    D_FlipFlop flotti  (.D(D1), .clk(clk), .Q(ix));
     D_FlipFlop karotti (.D(D2), .clk(clk), .Q(y));
 
-    
 endmodule
