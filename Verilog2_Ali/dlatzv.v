@@ -22,7 +22,7 @@ module DLV (input wire D, input wire clk, output reg Q);
     reg [1:0] verz;
     reg sp;
 
-    always @(clk) begin            //unsicher op ich es mit dem # als delay machen
+    always @(clk) begin                  //unsicher op ich es mit dem # als delay machen
         verz <= verz + 2'd1;             //solte oder nicht das geht aber auch 
         if (clk == 1'd1) sp <= D;
         if (verz == 2'd3) Q <= sp;
