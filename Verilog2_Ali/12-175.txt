@@ -1,0 +1,50 @@
+t1z1 Pegeländerung da rst = 0 und x den pegel ändert zu 1 deswegen kommen wir in den always block 
+t1z2 Pegeländerung da x assigned wird für rst = 0
+t1z3 Keine Pegelä da @ posedge clk und clk nicht in der Flanke ist
+t1z4 keine da wieder keine flanke bei clk oder rst 
+t1z5 wie t1z4 (zündet bei jeder änderung is aber nicht der Fall)
+t1z6 keine da keine pegeländerung von clk oder rst
+t1z7 keine da beide (clk und rst) sich nicht ändern
+t1z8 halt n flipflop
+
+t2
+einzige änderung bei z7 da clk auf 0 ändert und rst auf 0 ist also wird z7 x zugewiesen => pegeländerung
+
+t3
+pegeländerung bei z3 z4 z5 z6 und z8 da
+z3 bei posedge z3 = x und x = 1
+z4 wie z3 //
+z5 wie z3 // wie z3 soll heißen es verhält sich in dem moment so nicht z3=z4=z5 
+z6 wie z3 // da alle bei posedge feuern
+z8 ist halt n flipflop
+
+t4
+Pegeländerung bei z1 z2 z4 z5 z6 z7
+z1 da @(*) und rst auf 1 fällt => z1 = 0
+z2 assigned bei rst = 1 z2 = 0
+z4 posedge von rst rst 1 => z4 = 0
+z5 wie z4
+z6 wie z4
+z7 da nur rst sich ändert gleiche zuweisung wie bei z4
+
+t5
+pgä bei z3, z6 da
+z3 bei posedge geht jedoch anders als z4 &z5 noch bei 1 ist
+z6 gleicher Fall
+z8 belibt 1 da x = 1
+
+t6
+es wird nur x geändert => nur z1 ändert sich jedoch ist z1 schon bei 0
+
+t7
+Diesesmal ändert sich rst jedoch ist x = 0 und alle änderungen für zi <= ? 0 : x sind so oder so 0
+da es eine negedge ist bleibt z6 jedoch 1 
+z8 dff ist dff 
+
+t8 posedge der clk jedoch rst = 0 und x = 0 => z6 = x =0 & z8 dff  jetzt auch 0  der rest ist eh schon 0 also keine 
+änderung
+
+t9 keine änderung da posedge rst und alle die feuern würden sind eh schon auf 0
+
+ta
+x auf 1 jedoch rst  = 1 => es feuert nur z1 & z2 die sind jedoch schon auf 0  
