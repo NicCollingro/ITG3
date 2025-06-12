@@ -20,7 +20,7 @@ endmodule
 // man benötigt nur die positive taktflanke zu betrachten da flipflops nur bei positiver Taktflanke schalten
 // und beide gates von dem flipßflop anbhängig sind
 
-module test1;
+module test1();
     wire a, b , c;
     reg clk = 0;
     always #1 clk = ~clk;
