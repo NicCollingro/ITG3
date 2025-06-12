@@ -21,7 +21,4 @@ module test();
         #2  a = 1; b = 0;
 
     end
-    
-
-
 endmodule
