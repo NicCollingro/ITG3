@@ -29,6 +29,9 @@ set_location_assignment PIN_R8  -to CLOCK_50
 set_location_assignment PIN_J15 -to key0
 set_location_assignment PIN_E1  -to key1
 
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to GPIO_023
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to GPIO_021
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to GPIO_019
 # GPIO
 set_location_assignment PIN_A8  -to GPIO_0_IN0
 set_location_assignment PIN_D3  -to GPIO_00
