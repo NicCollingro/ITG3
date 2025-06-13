@@ -1,14 +1,15 @@
 module top_level(CLOCK_50, GPIO_023, GPIO_021, GPIO_019, led);
-    input CLOCK_50, GPIO_023, GPIO_021, GPIO_019;
+    input CLOCK_50, GPIO_023, GPIO_021, GPIO_019, GPIO_017;
     output [7:0] led;
     
-    wire [2:0] cols;
+    wire [3:0] cols;
     wire [3:0] rows;
     wire [3:0] keycode;
     
     assign cols[0] = GPIO_023;
     assign cols[1] = GPIO_021;
     assign cols[2] = GPIO_019;
+    assign cols[3] = GPIO_017
     
     reg [26:0] clock = 26'd0;
     reg clk;
@@ -82,7 +83,7 @@ module top_level(CLOCK_50, GPIO_023, GPIO_021, GPIO_019, led);
 endmodule
 
 module keypad(input CLOCK_50, output reg [3:0] keycode,
-              input [2:0] cols, output reg [3:0] rows = 4'b1110); 
+              input [3:0] cols, output reg [3:0] rows = 4'b1110); 
     reg [26:0] clock = 26'd0;
     reg clk;
     
