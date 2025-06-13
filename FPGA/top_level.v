@@ -1,33 +1,26 @@
-module top_level(CLOCK_50, GPIO_023, GPIO_021, GPIO_019, led);
-    input CLOCK_50, GPIO_023, GPIO_021, GPIO_019, GPIO_017;
-    output [7:0] led;
+module top_level(
+    input wire CLOCK_50, GPIO_023, GPIO_021, GPIO_019, GPIO_017,
+    output wire GPIO_015, GPIO_013, GPIO_011, GPIO_009,
+    output reg [7:0] led
+    );
     
-    wire [3:0] cols;
-    wire [3:0] rows;
     wire [3:0] keycode;
-    
-    assign cols[0] = GPIO_023;
-    assign cols[1] = GPIO_021;
-    assign cols[2] = GPIO_019;
-    assign cols[3] = GPIO_017
-    
     reg [26:0] clock = 26'd0;
     reg clk;
     
-    always @(posedge CLOCK_50) begin
-        clock <= clock + 1;
-        clk <= clock[24];
-    end
     reg [1:0] count = 2'd0;
     reg [3:0] input1 = 4'd0;
     reg [3:0] input2 = 4'd0;
     reg [7:0] result;
     wire [7:0] mult;
 
-    keypad paddie(.CLOCK_50(CLOCK_50), .keycode(keycode), .cols(cols), .rows(rows));
+    keypad paddie(.CLOCK_50(CLOCK_50), .keycode(keycode), .cols({GPIO_023, GPIO_021, GPIO_019, GPIO_017}),
+                .rows({GPIO_015, GPIO_013, GPIO_011, GPIO_009}));
+
     mult4 multi(.a(input1), .b(input2), .out(mult));
     
-    always @(posedge clk) begin
+    always @(posedge CLOCK_50) begin
+        led <= result;
         case(count)
             2'd0: begin
                 if (keycode == 4'd10) count <= count + 1;
@@ -75,11 +68,14 @@ module top_level(CLOCK_50, GPIO_023, GPIO_021, GPIO_019, led);
             end
             
             default: begin
+                input1 <= 4'd0;
+                input2 <= 4'd0;
+                result <= 8'd0;
                 if (keycode == 4'd11) count <= 2'd0;
             end
         endcase
     end
-    assign led = result;
+   
 endmodule
 
 module keypad(input CLOCK_50, output reg [3:0] keycode,
@@ -102,18 +98,18 @@ module keypad(input CLOCK_50, output reg [3:0] keycode,
         endcase
         
         case({rows,cols})
-            7'b1110110: keycode <= 4'd1;
-            7'b1110101: keycode <= 4'd2;
-            7'b1110011: keycode <= 4'd3;
-            7'b1101110: keycode <= 4'd4;
-            7'b1101101: keycode <= 4'd5;
-            7'b1101011: keycode <= 4'd6;
-            7'b1011110: keycode <= 4'd7;
-            7'b1011101: keycode <= 4'd8;
-            7'b1011011: keycode <= 4'd9;
-            7'b0111110: keycode <= 4'd10;
-            7'b0111101: keycode <= 4'd0;
-            7'b0111011: keycode <= 4'd11;
+            8'b11101101: keycode <= 4'd1;
+            8'b11101011: keycode <= 4'd2;
+            8'b11100111: keycode <= 4'd3;
+            8'b11011101: keycode <= 4'd4;
+            8'b11011011: keycode <= 4'd5;
+            8'b11010111: keycode <= 4'd6;
+            8'b10111101: keycode <= 4'd7;
+            8'b10111011: keycode <= 4'd8;
+            8'b10110111: keycode <= 4'd9;
+            8'b01111101: keycode <= 4'd10;
+            8'b01111011: keycode <= 4'd0;
+            8'b01110111: keycode <= 4'd11;
             default: keycode <= keycode;
         endcase
     end
