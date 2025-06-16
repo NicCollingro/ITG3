@@ -7,7 +7,15 @@ always @(posedge CLOCK_50); begin
     help <= help + 1;
     clk <= help[18];
 end
+reg [2:0] check;
 
+always @(posedge clk) begin
+    if (check != 3'd7)begin
+        
+
+
+    end
+end
 
 
 endmodule
