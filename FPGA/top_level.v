@@ -8,6 +8,7 @@ module top_level(
     reg [26:0] clock = 26'd0;
     reg clk;
     
+    reg knopfdruck = 0;
     reg [1:0] count = 2'd0;
     reg [3:0] input1 = 4'd0;
     reg [3:0] input2 = 4'd0;
@@ -18,60 +19,92 @@ module top_level(
                 .rows({GPIO_015, GPIO_013, GPIO_011, GPIO_009}));
 
     mult4 multi(.a(input1), .b(input2), .out(mult));
+
+    wire hilfe = ~(GPIO_023 & GPIO_021 & GPIO_019 & GPIO_017);
     
     always @(posedge CLOCK_50) begin
-        led <= result;
+        if (hilfe) knopfdruck <= 1;
+        else knopfdruck <= 0;
+        end
+
+    always @(posedge knopfdruck) begin
         case(count)
             2'd0: begin
-                if (keycode == 4'd10) count <= count + 1;
                 case (input1)
-                    4'd10: begin
-                        if (keycode <= 4'd5) begin 
+                    4'd15: begin
+                        if (keycode <= 4'd9) begin
                             input1 <= keycode;
-                            result[7:4] <= keycode;  
-                        end
+                            led [7:4] <= keycode;
+                            count <= count +4'd1;
+                        end else count <= count + 4'd1;
+                    end
+                    4'd10: begin
+                    if (keycode <= 4'd5) begin
+                        input1 <= (input1 + keycode);
+                        led[7:4] <= input1;
+                        end else count = count + 4'd1;
                     end
                     default: begin
-                        if (keycode <= 4'd9) begin
-                            if (keycode != 4'd1) begin
+                        case (keycode)
+                            4'd0: input1 <= 4'd15;
+                            4'd1: input1 <= 4'd10;
+                            4'd10: count <= count + 4'd1;
+                            4'd11: count <= count + 4'd1;
+                            default: begin
                                 input1 <= keycode;
-                                result[7:4] <= keycode;
-                            end else input1 <= 4'd10;
-                        end else count <= count + 1; // hier 
-                    end
+                                led [7:4] <= keycode;
+                            end
+                        endcase
+                   end
+
                 endcase
             end
             
             2'd1: begin
-                if (keycode == 4'd10) count <= count + 1;
                 case (input2)
-                    4'd10: begin
-                        if (keycode <= 4'd5) begin 
+                    4'd15: begin
+                        if (keycode <= 4'd9) begin
                             input2 <= keycode;
-                            result[3:0] <= keycode;  
-                        end
+                            led [3:0] <= keycode;
+                            count <= count + 4'd1;
+                        end else count <= count + 4'd1;
+                    end
+                    4'd10: begin
+                    if (keycode <= 4'd5) begin
+                        input2 <= (input2 + keycode);
+                        led[3:0] <= input2;
+                    end else count = count + 4'd1;
                     end
                     default: begin
-                        if (keycode <= 4'd9) begin
-                            if (keycode != 4'd1) begin
+                        case (keycode)
+                            4'd0: input2 <= 4'd15;
+                            4'd1: input2 <= 4'd10;
+                            4'd10: count <= count + 4'd1;
+                            4'd11: count <= count + 4'd1;
+                            default: begin
                                 input2 <= keycode;
-                                result[3:0] <= keycode;
-                            end else input2 <= 4'd10;
-                        end else count <= count + 1; // Hier ändern jenachdem was robert sagt
-                    end
+                                led [3:0] <= keycode;
+                            end
+                        endcase
+                   end
                 endcase
             end
             
             2'd2: begin
-                result <= mult;
-                if (keycode == 4'd11) count <= 2'd0;
+                led <= mult;
+                if (keycode == 4'd11) begin
+                    input1 <= 4'd0;
+                    input2 <= 4'd0;
+                    led <= 8'd0;
+                    count <= 4'd0;
+                end
             end
             
             default: begin
                 input1 <= 4'd0;
                 input2 <= 4'd0;
-                result <= 8'd0;
-                if (keycode == 4'd11) count <= 2'd0;
+                led <= 8'd0;
+                count <= 2'd0;
             end
         endcase
     end
@@ -80,15 +113,8 @@ endmodule
 
 module keypad(input CLOCK_50, output reg [3:0] keycode,
               input [3:0] cols, output reg [3:0] rows = 4'b1110); 
-    reg [26:0] clock = 26'd0;
-    reg clk;
-    
-    always @(posedge CLOCK_50) begin
-        clock <= clock + 1;
-        clk <= clock[20];
-    end
 
-    always @(posedge clk) begin
+    always @(posedge CLOCK_50) begin
         case (rows)
             4'b1110: rows <= 4'b1101;
             4'b1101: rows <= 4'b1011;
