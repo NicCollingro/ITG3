@@ -12,6 +12,9 @@ module top_level(input wire CLOCK_50, input wire GPIO_023, input  wire GPIO_033)
     assign sending = sending_reg;
     I2C_master MYI2C(.clk(CLOCK_50),.sda(datawire), .scl(clockwire), .send(sending), .busy(busywire), .data(data), .addr(addr), .rw(rw));
 
+    assign GPIO_032 = clockwire;
+    assign GPIO_033 = datawire;
+
     initial begin
         $monitor("%t , sda: %b, scl: %b", $time, datawire, clockwire);
         #10 sending_reg = 1;
