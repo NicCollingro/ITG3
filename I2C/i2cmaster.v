@@ -1,6 +1,6 @@
 module I2C_master (input wire CLOCK_50, inout wire sda, output wire scl, input wire send, output wire busy,
 input wire [6:0] addr, input wire [7:0] data , input wire rw);
-reg sda_oe = 1, sda_r = 1, clk, scl_r = 1, busy_r =1;
+reg sda_oe = 1, sda_r = 1, clk, scl_r = 1, busy_r = 0;
 reg [20:0] help;
 assign sda = sda_oe ? sda_r : 1'bz;
 assign scl = scl_r;
@@ -11,12 +11,17 @@ always @(posedge CLOCK_50) begin
 end
 reg [7:0] zustand = 8'd0;
 
-reg halloechen = 0;
+reg halloechen = 0; // Test, kann gelöscht werden 
+always @(posedge send)begin
+    
+end
+
+
 
 always @(posedge clk) begin
+        if (busy) begin
         case (zustand)
         8'd0: begin
-            busy_r = 1; //busy bei 1
             sda_oe = 1;
             sda_r <= 1;
             scl_r <= 1;
@@ -588,7 +593,10 @@ always @(posedge clk) begin
 
         default: begin
             zustand <= zustand + 1;
+            busy_r <= 0;
         end
         endcase
+    
     end
+end
 endmodule
