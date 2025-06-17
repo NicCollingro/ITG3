@@ -125,8 +125,8 @@ module I2C_master(input wire clk, inout wire sda, input wire scl, input wire sen
             7'd71: begin sda_r <= 0; state = state + 1; end
             
             //
-            7'd70: begin scl_r <= 1; state = state + 1; end
-            7'd71: begin sda_r <= 1; state = state + 1; end
+            7'd72: begin scl_r <= 1; state = state + 1; end
+            7'd73: begin sda_r <= 1; state = state + 1; end
         endcase
 
     end
