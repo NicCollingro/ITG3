@@ -3,7 +3,7 @@ module I2C_master(input wire clk, inout wire sda, input wire scl, input wire sen
     assign sda = sda_oe ? sda_r : 1'bz;
     reg [8:0] clk_safe;
     reg i2c_clk;
-    reg [6:0] state;
+    reg [6:0] statec = 0;
 
     always @(posedge clk) begin
         i2c_clk = 0;
