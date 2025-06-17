@@ -1,27 +1,25 @@
-module I2C_master (input wire CLOCK_50, inout wire sda, output wire scl, input wire send, output wire busy,
+module I2C_master (input wire CLOCK_50, inout wire sda, output wire scl, input wire send, output reg busy,
 input wire [6:0] addr, input wire [7:0] data , input wire rw);
-reg sda_oe = 1, sda_r = 1, clk, scl_r = 1, busy_r = 0;
+reg sda_oe = 1, sda_r = 1, clk, scl_r = 1;
 reg [20:0] help;
 assign sda = sda_oe ? sda_r : 1'bz;
 assign scl = scl_r;
-assign busy = busy_r;
 always @(posedge CLOCK_50) begin
     help <= help + 1;
     clk <= help[18];
 end
 reg [7:0] zustand = 8'd0;
-
-reg halloechen = 0; // Test, kann gelöscht werden 
-always @(posedge send)begin
-    
-end
-
-
-
+reg send_old;
+reg check = 0;
 always @(posedge clk) begin
-        if (busy) begin
+    send_old <= send;
+    if (send_old != send) begin
+        check <= 1'd1;
+    end
+        if (check == 1) begin
         case (zustand)
         8'd0: begin
+            busy <= 1;
             sda_oe = 1;
             sda_r <= 1;
             scl_r <= 1;
@@ -364,29 +362,29 @@ always @(posedge clk) begin
             end
         end
 
-        8'd34: begin
+        8'd35: begin
             sda_r <= 0;
             scl_r <= 0;
             zustand <= zustand +1;
         end
 
-        8'd35: begin
-            if (rw == 0) begin
-            if (data[5]) begin
-                sda_r <= 1;
-                scl_r <= 0;
-                zustand <= zustand +1;
-            end else begin
-                sda_r <= 0;
-                scl_r <= 0;
-                zustand <= zustand +1;
-            end
-        end
-        end
-        
         8'd36: begin
             if (rw == 0) begin
             if (data[5]) begin
+                sda_r <= 1;
+                scl_r <= 0;
+                zustand <= zustand +1;
+            end else begin
+                sda_r <= 0;
+                scl_r <= 0;
+                zustand <= zustand +1;
+            end
+        end
+        end
+        
+        8'd37: begin
+            if (rw == 0) begin
+            if (data[5]) begin
                 sda_r <= 0;
                 scl_r <= 1;
                 zustand <= zustand +1;
@@ -396,50 +394,17 @@ always @(posedge clk) begin
                 zustand <= zustand +1;
             end
             end
-        end
-
-        8'd37: begin
-            sda_r <= 0;
-            scl_r <= 0;
-            zustand <= zustand +1;
         end
 
         8'd38: begin
-            if (rw == 0) begin
-            if (data[4]) begin
-                sda_r <= 1;
-                scl_r <= 0;
-                zustand <= zustand +1;
-            end else begin
-                sda_r <= 0;
-                scl_r <= 0;
-                zustand <= zustand +1;
-            end
+            sda_r <= 0;
+            scl_r <= 0;
+            zustand <= zustand +1;
         end
-        end
-        
+
         8'd39: begin
             if (rw == 0) begin
             if (data[4]) begin
-                sda_r <= 0;
-                scl_r <= 1;
-                zustand <= zustand +1;
-            end else begin
-                sda_r <= 0;
-                scl_r <= 1;
-                zustand <= zustand +1;
-            end
-            end
-        end
-        8'd40: begin
-            sda_r <= 0;
-            scl_r <= 0;
-            zustand <= zustand +1;
-        end
-
-        8'd41: begin
-            if (rw == 0) begin
-            if (data[3]) begin
                 sda_r <= 1;
                 scl_r <= 0;
                 zustand <= zustand +1;
@@ -451,9 +416,42 @@ always @(posedge clk) begin
         end
         end
         
+        8'd40: begin
+            if (rw == 0) begin
+            if (data[4]) begin
+                sda_r <= 0;
+                scl_r <= 1;
+                zustand <= zustand +1;
+            end else begin
+                sda_r <= 0;
+                scl_r <= 1;
+                zustand <= zustand +1;
+            end
+            end
+        end
+        8'd41: begin
+            sda_r <= 0;
+            scl_r <= 0;
+            zustand <= zustand +1;
+        end
+
         8'd42: begin
             if (rw == 0) begin
             if (data[3]) begin
+                sda_r <= 1;
+                scl_r <= 0;
+                zustand <= zustand +1;
+            end else begin
+                sda_r <= 0;
+                scl_r <= 0;
+                zustand <= zustand +1;
+            end
+        end
+        end
+        
+        8'd43: begin
+            if (rw == 0) begin
+            if (data[3]) begin
                 sda_r <= 0;
                 scl_r <= 1;
                 zustand <= zustand +1;
@@ -463,31 +461,31 @@ always @(posedge clk) begin
                 zustand <= zustand +1;
             end
             end
-        end
-
-        8'd43: begin
-            sda_r <= 0;
-            scl_r <= 0;
-            zustand <= zustand +1;
         end
 
         8'd44: begin
-            if (rw == 0) begin
-            if (data[2]) begin
-                sda_r <= 1;
-                scl_r <= 0;
-                zustand <= zustand +1;
-            end else begin
-                sda_r <= 0;
-                scl_r <= 0;
-                zustand <= zustand +1;
-            end
+            sda_r <= 0;
+            scl_r <= 0;
+            zustand <= zustand +1;
         end
-        end
-        
+
         8'd45: begin
             if (rw == 0) begin
             if (data[2]) begin
+                sda_r <= 1;
+                scl_r <= 0;
+                zustand <= zustand +1;
+            end else begin
+                sda_r <= 0;
+                scl_r <= 0;
+                zustand <= zustand +1;
+            end
+        end
+        end
+        
+        8'd46: begin
+            if (rw == 0) begin
+            if (data[2]) begin
                 sda_r <= 0;
                 scl_r <= 1;
                 zustand <= zustand +1;
@@ -497,49 +495,49 @@ always @(posedge clk) begin
                 zustand <= zustand +1;
             end
             end
-        end
-
-        8'd46: begin
-            sda_r <= 0;
-            scl_r <= 0;
-            zustand <= zustand +1;
         end
 
         8'd47: begin
-            if (rw == 0) begin
-            if (data[1]) begin
-                sda_r <= 1;
-                scl_r <= 0;
-                zustand <= zustand +1;
-            end else begin
-                sda_r <= 0;
-                scl_r <= 0;
-                zustand <= zustand +1;
-            end
-        end
-        end
-        
-        8'd48: begin
-            if (rw == 0) begin
-            if (data[1]) begin
-                sda_r <= 0;
-                scl_r <= 1;
-                zustand <= zustand +1;
-            end else begin
-                sda_r <= 0;
-                scl_r <= 1;
-                zustand <= zustand +1;
-            end
-            end
-        end
-
-        8'd49: begin
             sda_r <= 0;
             scl_r <= 0;
             zustand <= zustand +1;
         end
 
+        8'd48: begin
+            if (rw == 0) begin
+            if (data[1]) begin
+                sda_r <= 1;
+                scl_r <= 0;
+                zustand <= zustand +1;
+            end else begin
+                sda_r <= 0;
+                scl_r <= 0;
+                zustand <= zustand +1;
+            end
+        end
+        end
+        
+        8'd49: begin
+            if (rw == 0) begin
+            if (data[1]) begin
+                sda_r <= 0;
+                scl_r <= 1;
+                zustand <= zustand +1;
+            end else begin
+                sda_r <= 0;
+                scl_r <= 1;
+                zustand <= zustand +1;
+            end
+            end
+        end
+
         8'd50: begin
+            sda_r <= 0;
+            scl_r <= 0;
+            zustand <= zustand +1;
+        end
+
+        8'd51: begin
             if (rw == 0) begin
             if (data[0]) begin
                 sda_r <= 1;
@@ -553,7 +551,7 @@ always @(posedge clk) begin
         end
         end
         
-        8'd51: begin
+        8'd52: begin
             if (rw == 0) begin
             if (data[0]) begin
                 sda_r <= 0;
@@ -567,36 +565,35 @@ always @(posedge clk) begin
             end
         end
 
-        8'd52: begin
+        8'd53: begin
             sda_oe <= 1;
             sda_r <= 0;
             scl_r <= 0;
             zustand <= zustand + 1;
         end
 
-        8'd53: begin
+        8'd54: begin
             scl_r <= 1;
             sda_r <= 0;
             zustand <= zustand + 1;
         end
         
-        8'd54: begin
+        8'd55: begin
             scl_r <= 1;
             sda_r <= 1;
             zustand <= zustand +1;
         end
 
-        8'd55: begin
-            busy_r <= 0;
-            halloechen <= 1;
+        8'd56: begin
+            busy <= 0;
+            check <= 0;
         end
 
         default: begin
             zustand <= zustand + 1;
-            busy_r <= 0;
+            busy <= 0;
         end
         endcase
-    
     end
 end
 endmodule
