@@ -1,4 +1,4 @@
-module ALU(input wire clk, input wire [7:0] in_a, input wire [7:0] in_b, 
+module alu(input wire clk, input wire [7:0] in_a, input wire [7:0] in_b, 
 input wire [2:0] mode, input wire eo,
 inout wire [7:0] out, output reg flag_zero = 0, 
 output reg flag_carry = 0, input wire ee);
