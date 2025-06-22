@@ -36,10 +36,10 @@ always @(posedge clk) begin
                 if  (sub == 8'd0) flag_zero <= 1;
             end   
             3'b011: begin // inc
-                
+                r_out <= in_a + 8'd1;
             end    
             3'b100: begin // dec
-                
+                r_out <= in_a - 8'd1;
             end    
             3'b101: begin // and
                 r_out <= und;
