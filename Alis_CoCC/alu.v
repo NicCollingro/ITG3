@@ -18,13 +18,13 @@ Band land(.a(in_a), .b(in_b), .out(und));
 Bor gore(.a(in_a), .b(in_b), .out(oder));
 Bixbi hixbi(.a(in_a), .b(in_b), .out(xoder));
 /*bombinatorisch 
-assign r_out = (mode == 3'b000) add : (mode == 3'b001) (add+cad) : (mode == 3'b010) sub : (mode == 3'b011) (in_a + 8'd1) : 
-(mode == 3'b100) (in_a - 8'd1) : (mode == 3'b101) und : (mode == 3'b110) oder : (mode == 3'b111) xoder : 8'bx;
+assign r_out = (mode == 3'b000) ? add : (mode == 3'b001) ? (add+cad) : (mode == 3'b010) ? sub : (mode == 3'b011) ? (in_a + 8'd1) : 
+(mode == 3'b100) ? (in_a - 8'd1) : (mode == 3'b101) ? und : (mode == 3'b110) ? oder : (mode == 3'b111) ? xoder : 8'bx;
 
-assign flag_carry = (mode == 3'b000) cad : (mode == 3'b001) cad : (mode == 3'b010) subc : (mode == 3'b011) 8'd0 : 
-(mode == 3'b100) 8'd0 : (mode == 3'b101) 8'd0 : (mode == 3'b110) 8'd0 : (mode == 3'b111) 8'd0 : 8'bx;
+assign flag_carry = (mode == 3'b000) ? cad : (mode == 3'b001) ? cad : (mode == 3'b010) ? subc : (mode == 3'b011) ? 8'd0 : 
+(mode == 3'b100) ? 8'd0 : (mode == 3'b101) ? 8'd0 : (mode == 3'b110) ? 8'd0 : (mode == 3'b111) ? 8'd0 : 8'bx;
 
-assign flag_zero = (r_out == 8'd0) 1'd1 : 1'd0;
+assign flag_zero = (r_out == 8'd0) ? 1'd1 : 1'd0;
 */
 //nicht komb
 always @(*) begin
