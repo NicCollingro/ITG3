@@ -40,7 +40,7 @@ always @(posedge clk) begin
             end    
             3'b100: begin // dec
                 r_out <= in_a - 8'd1;
-            end    
+            end
             3'b101: begin // and
                 r_out <= und;
                 flag_carry <= 0;
@@ -50,12 +50,12 @@ always @(posedge clk) begin
                 r_out <= oder;
                 flag_carry <= 0;
                 if (oder == 8'd0) flag_zero <= 1;
-            end    
+            end
             3'b111: begin //xor
                 r_out <= xoder;
                 flag_carry <= 0;
                 if (xoder == 8'd0) flag_zero <= 1;
-            end    
+            end
             default: r_out <= 8'bx;
         endcase
     end
