@@ -14,4 +14,8 @@ if (oe) begin
     end
 end
 end
+
+initial begin
+    $readmemh("rom.hex", mem)
+end
 endmodule
