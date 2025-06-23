@@ -1,9 +1,10 @@
-module alu(input wire clk, input wire [7:0] in_a, input wire [7:0] in_b, 
+module alu(input wire [7:0] in_a, input wire [7:0] in_b, 
 input wire [2:0] mode, input wire eo,
 inout wire [7:0] out, output reg flag_zero = 0, 
 output reg flag_carry = 0, input wire ee);
 
 reg [7:0] r_out = 8'b0;
+//wire [7:0] r_out = 8'b0; // bomba komba
 assign out = (eo) ? r_out : 8'bz;
 wire [7:0] add;
 wire [7:0] sub;
@@ -16,8 +17,17 @@ Vollsubtrahierer nadder(.in_a(in_a), .in_b(in_b),.out_diff(sub), .out_carry(subc
 Band land(.a(in_a), .b(in_b), .out(und));
 Bor gore(.a(in_a), .b(in_b), .out(oder));
 Bixbi hixbi(.a(in_a), .b(in_b), .out(xoder));
+/*bombinatorisch 
+assign r_out = (mode == 3'b000) add : (mode == 3'b001) (add+cad) : (mode == 3'b010) sub : (mode == 3'b011) (in_a + 8'd1) : 
+(mode == 3'b100) (in_a - 8'd1) : (mode == 3'b101) und : (mode == 3'b110) oder : (mode == 3'b111) xoder : 8'bx;
 
-always @(posedge clk) begin
+assign flag_carry = (mode == 3'b000) cad : (mode == 3'b001) cad : (mode == 3'b010) subc : (mode == 3'b011) 8'd0 : 
+(mode == 3'b100) 8'd0 : (mode == 3'b101) 8'd0 : (mode == 3'b110) 8'd0 : (mode == 3'b111) 8'd0 : 8'bx;
+
+assign flag_zero = (r_out == 8'd0) 1'd1 : 1'd0;
+*/
+//nicht komb
+always @(*) begin
     if (ee) begin
         case (mode)
             3'b000: begin //add
