@@ -44,3 +44,6 @@
 `define OP_POP  (8’b01_100_000)
 `define OP_JMP  (8’b01_101_000)
 `define OP_MOV  (8’b10_000_000)
+
+`define STATE_HOLD
+`define STATE_NEXT
