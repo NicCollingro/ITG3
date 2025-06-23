@@ -1,6 +1,12 @@
+`include "clock.v"
+
 module fsm (input wire clk, input wire [7:0] opcode,
 input wire reset, output reg[7:0] state = 8'b0);
 reg [3:0] cycle == 0;
+
+wire cyc, ram, int;
+
+
 
 always @(negedge clk) begin
     if (reset) cycle <= 4'd0;
