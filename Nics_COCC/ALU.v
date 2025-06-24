@@ -1,7 +1,9 @@
+`include "symbols.vh"
 module ALU(input wire clk, input wire [7:0] in_a, input wire [7:0] in_b, 
 input wire [2:0] mode, input wire eo,
 inout wire [7:0] out, output reg flag_zero = 0, 
 output reg flag_carry = 0, input wire ee);
+
 
 reg [7:0] r_out = 8'b0;
 assign out = (eo) ? r_out : 8'bz;
@@ -11,8 +13,8 @@ wire [7:0] und;
 wire [7:0] oder;
 wire [7:0] xoder;
 wire cad, subc;
-Volladdierer vadder(.in_a(in_a), .in_b(in_b),.out_sum(add), .out_carry(cad));
-Vollsubtrahierer nadder(.in_a(in_a), .in_b(in_b),.out_diff(sub), .out_carry(subc));
+Volladdierer vadder(.in_a(in_a), .in_b(in_b), .out_sum(add), .out_carry(cad));
+Vollsubtrahierer nadder(.in_a(in_a), .in_b(in_b), .out_diff(sub), .out_carry(subc));
 Band land(.a(in_a), .b(in_b), .out(und));
 Bor gore(.a(in_a), .b(in_b), .out(oder));
 Bixbi hixbi(.a(in_a), .b(in_b), .out(xoder));
