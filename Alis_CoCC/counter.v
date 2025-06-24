@@ -4,8 +4,9 @@ reg [7:0] r_out = 8'd0;
 assign out = (oe) ? r_out : 8'bz;
 
 always @(posedge clk) begin
-    if (reset) r_out <= 8'd0;
-end
+    if (reset) begin
+         r_out <= 8'd0;
+    end
     else begin
         if(set) r_out <= in;
         else begin
@@ -13,6 +14,7 @@ end
             else
             r_out <= r_out + 1;
         end 
+    end
 end
 
 endmodule
