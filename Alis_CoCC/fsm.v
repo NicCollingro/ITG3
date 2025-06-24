@@ -1,17 +1,14 @@
 `include "symbols.vh"
 
 module fsm (input wire clk, input wire [7:0] opcode,
-input wire reset, output reg[7:0] state = 8'b0);
-reg [3:0] cycle == 0;
+input wire reset, output reg [7:0] state = 8'b0);
+reg [3:0] cycle = 4'd0;
 
 wire reset_cycle = (state == `STATE_NEXT | reset);
 always @(negedge clk) begin
     if (reset_cycle) cycle <= 4'd0;
     else cycle <= cycle + 4'd1;
 end
-
-
-endmodule
 
 always @(posedge clk) begin
     case (cycle)
@@ -84,3 +81,5 @@ always @(posedge clk) begin
     default: state <= 8'bx; //KEK
     endcase 
 end
+
+endmodule

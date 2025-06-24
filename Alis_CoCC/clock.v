@@ -5,8 +5,12 @@ output reg cycle_clk = 0, output reg ram_clk = 0, output reg internal_clk = 0
 reg [2:0] cnt = 3'd1;
 
 always @(posedge clk) begin
-    if (halt) 
-    else if (reset) cnt = 3'd4;
+    if (halt) begin
+        cnt <= cnt;
+    end
+    else if (reset) begin
+    cnt <= 3'd4;
+    end
     else begin
     case (cnt)
         3'd1: cnt <= {cnt[1:0],1'd0};
