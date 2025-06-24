@@ -35,7 +35,7 @@ endcase
 end
 
 always @ (*) begin
-case ( opcode )
+case (opcode)
     `OP_ALU:   iaddr <= 3'b000; //Akumulator 
     `OP_CALL:  iaddr <= 3'b111; //rechenregister
     `OP_LDI:   iaddr <= operand2;
