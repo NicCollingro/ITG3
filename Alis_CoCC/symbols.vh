@@ -45,5 +45,22 @@
 `define OP_JMP  (8’b01_101_000)
 `define OP_MOV  (8’b10_000_000)
 
-`define STATE_HOLD
-`define STATE_NEXT
+`define STATE_NEXT             8'h00
+`define STATE_HALT             8'h01
+`define STATE_FETCH_PC         8'h02
+`define STATE_FETCH_INST       8'h03
+`define STATE_MOV_REG          8'h04
+`define STATE_LOAD_ADDR        8'h05		
+`define STATE_SET_REG          8'h06		
+`define STATE_SET_MEM          8'h07		
+`define STATE_ALU_EXEC         8'h08
+`define STATE_ALU_OUT          8'h09
+`define STATE_JUMP             8'h0a
+`define STATE_FETCH_SP         8'h0b
+`define STATE_STORE_PC         8'h0c
+`define STATE_TMP_JUMP         8'h0d
+`define STATE_INC_SP           8'h0e
+`define STATE_RET              8'h0f
+`define STATE_STACK_REG        8'h10
+`define STATE_MOUT_STORE       8'h11			
+`define STATE_ROUT_STORE       8'h13			
