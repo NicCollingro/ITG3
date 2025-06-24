@@ -1,3 +1,4 @@
+`include "symbols.vh"
 module tristate_buffer(input wire oe, input wire[7:0] in, inout wire[7:0] out);
     assign out = oe ? in : 1'bz;
 endmodule
