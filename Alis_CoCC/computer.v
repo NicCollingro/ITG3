@@ -1,7 +1,7 @@
-`include "symbols.vh"
-
-module computer (input wire clk);
-wire [7:0] data_bus;
+`include "symbols.vh"                          //FRAGE der Stackpointer hab ich jetzt noch nicht so verstanden 
+                                               // im skript steht auf 0xFF setzen also ahb ich ihn hier mal auf 8'b11111111 
+module computer (input wire clk);              // gesetzt aber was genau macht der und wieso 
+wire [7:0] data_bus;                           //also jetzt mal bei ner x86_64 CPU und ist der so ähnlich wie die pointer in C ?
 wire [7:0] addrbus;
 assign data_bus = 8'bz;
 
@@ -20,7 +20,7 @@ wire [2:0] oaddr;
 wire [7:0] opcode;
 wire [2:0] alu_mode; 
 wire flag_carry, flag_zero;
-reg reset = 1'b0;
+reg reset = 1'b0;                     //sollens ja ohne Reset machen 
 
 wire c_ii, c_ci, c_co, c_cs, c_rfi, c_rfo, c_eo, c_ee;
 wire c_mi, c_ro, c_ri, c_so, c_sd, c_si, c_halt;
@@ -37,7 +37,7 @@ wire [7:0] reg_a;
 wire [7:0] reg_b;
 
 regblock coc(.clk(internal_clk), .we(c_rfi), .oaddr(oaddr), .iaddr(iaddr), .idata(data_bus), 
-.oe(c_rfo), .odata(data_bus), .rega(reg_a), regb(reg_b));
+.oe(c_rfo), .odata(data_bus), .rega(reg_a), .regb(reg_b));
 
 alu malu(.in_a(reg_a), .in_b(reg_b), .mode(alu_mode), .eo(c_eo), .out(data_bus),
 .flag_zero(flag_zero), .flag_carry(flag_carry), .ee(c_ee));
@@ -45,8 +45,8 @@ alu malu(.in_a(reg_a), .in_b(reg_b), .mode(alu_mode), .eo(c_eo), .out(data_bus),
 counter pc(.clk(internal_clk ), .down(1'd0), .set(c_cs), .reset(reset), 
 .in(data_bus), .oe(c_co), .out(data_bus));
 
-counter schdeck(.clk(internal_clk), .oe(c_so), .in(8'b11111111),
-    .set(reset), .reset(reset), .down(c_sd), .out(data_bus));
+counter schdeck(.clk(internal_clk), .oe(c_so), .in(8'b11111111), 
+.set(reset), .reset(reset), .down(c_sd), .out(data_bus));
 
 register MARina(.clk(internal_clk), .en(c_mi), .in(data_bus), .out(addrbus));
 
