@@ -9,9 +9,4 @@ end
 
 computer combo(.clk(clk));
 
-initial begin
-        $dumpfile("test.vcd");
-        $dumpvars(0, combo); 
-end
-
 endmodule

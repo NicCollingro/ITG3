@@ -56,4 +56,9 @@ ram bazamba(.clk(ram_clk), .we(c_ri), .oe(c_ro), .addr(addrbus), .bus(data_bus))
 
 fsm FINITO(.clk(cycle_clk), .opcode(opcode), .reset(reset), .state(state));
 
+initial begin
+        $dumpfile("test.vcd");
+        $dumpvars(0, computer); 
+end
+
 endmodule
