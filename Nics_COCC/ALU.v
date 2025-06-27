@@ -1,5 +1,5 @@
-`include "symbols.vh"
-module ALU(input wire clk, input wire [7:0] in_a, input wire [7:0] in_b, 
+//`include "symbols.vh"
+module alu(input wire clk, input wire [7:0] in_a, input wire [7:0] in_b, 
 input wire [2:0] mode, input wire eo,
 inout wire [7:0] out, output reg flag_zero = 0, 
 output reg flag_carry = 0, input wire ee);
@@ -25,43 +25,43 @@ always @(posedge clk) begin
             3'b000: begin //add
                 r_out <= add;
                 flag_carry <= cad;
-                if  (add == 8'd0) flag_zero <= 1;
             end     
             3'b001: begin //adc
                 r_out <= (add + cad);
                 flag_carry <= cad;
-                if  ((add + cad) == 8'd0) flag_zero <= 1;
             end   
             3'b010: begin //sub
                 r_out <= sub;
                 flag_carry <= subc;
-                if  (sub == 8'd0) flag_zero <= 1;
             end   
             3'b011: begin // inc
                 r_out <= in_a + 8'd1;
+                if (in_a == 3'd255) begin
+                    flag_carry <= 1;
+                end
             end    
             3'b100: begin // dec
                 r_out <= in_a - 8'd1;
+                if (in_a == 3'd0) begin
+                    flag_carry <= 1;
+                end
             end    
             3'b101: begin // and
                 r_out <= und;
                 flag_carry <= 0;
-                if (und == 8'd0) flag_zero <= 1;
             end   
             3'b110: begin // or
                 r_out <= oder;
                 flag_carry <= 0;
-                if (oder == 8'd0) flag_zero <= 1;
             end    
             3'b111: begin //xor
                 r_out <= xoder;
                 flag_carry <= 0;
-                if (xoder == 8'd0) flag_zero <= 1;
             end    
             default: r_out <= 8'bx;
         endcase
+        flag_zero <= r_out == 0;
     end
-    
 end
 endmodule
 
