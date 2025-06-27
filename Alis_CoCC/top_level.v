@@ -1,4 +1,4 @@
-module top_level (input wire CLOCK_50, output wire [7:0] wire led);
+module top_level (input wire CLOCK_50, output wire [7:0] led);
 
 reg [24:0] help;
 reg clk;

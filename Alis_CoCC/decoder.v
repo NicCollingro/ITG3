@@ -36,8 +36,8 @@ end
 
 always @ (*) begin
 case (opcode)
-    `OP_ALU:   iaddr <= 3'b000; //Akumulator 
-    `OP_CALL:  iaddr <= 3'b111; //rechenregister
+    `OP_ALU:   iaddr <= `REG_A; //Akumulator 
+    `OP_CALL:  iaddr <= `REG_H; //rechenregister
     `OP_LDI:   iaddr <= operand2;
     `OP_LDX:   iaddr <= operand2;
     `OP_MOV:   iaddr <= operand1;
@@ -48,7 +48,7 @@ end
 
 always @ (*) begin
 case ( opcode )
-    `OP_CALL:  oaddr <= 3'b111;
+    `OP_CALL:  oaddr <= `REG_H;
     `OP_MOV:   oaddr <= operand2;
     `OP_STX:   oaddr <= operand2;
     `OP_PUSH:  oaddr <= operand2;		
