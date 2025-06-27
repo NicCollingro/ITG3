@@ -2,7 +2,7 @@
 
 module decoder (input wire [7:0] instruction, output reg [2:0] iaddr, output reg [2:0] oaddr,
 output wire [2:0] operand1,  output wire [2:0] operand2 , output reg[7:0] opcode,
-output reg [2:0] alu_mode);
+output reg [3:0] alu_mode);
 
 assign operand1 = instruction[5:3];
 assign operand2 = instruction[2:0];
@@ -30,7 +30,7 @@ always @ (*) begin
 case ( opcode )
 `OP_ALU : alu_mode <= operand2;
 `OP_CMP : alu_mode <= `ALU_SUB;
-default : alu_mode <= 3'bx;
+default : alu_mode <= 4'bx;
 endcase
 end
 
