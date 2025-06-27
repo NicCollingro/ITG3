@@ -34,37 +34,63 @@ always @(*) begin
                 r_out <= add;
                 flag_carry <= cad;
                 if  (add == 8'd0) flag_zero <= 1;
+                else flag_zero <= 0;
             end     
             3'b001: begin //adc
                 r_out <= (add + cad);
                 flag_carry <= cad;
                 if  ((add + cad) == 8'd0) flag_zero <= 1;
+                else flag_zero <= 0;
             end   
             3'b010: begin //sub
                 r_out <= sub;
                 flag_carry <= subc;
                 if  (sub == 8'd0) flag_zero <= 1;
+                else flag_zero <= 0;
             end   
             3'b011: begin // inc
                 r_out <= in_a + 8'd1;
-            end    
+                if (in_a == 8'd255) begin
+                flag_zero <= 1;
+                flag_carry <= 1;
+            end else if (r_out <= 0) begin
+                flag_zero <= 1;
+                flag_carry <= 0;
+                end else begin
+                    flag_zero <= 0;
+                    flag_carry <= 0;
+                end
+            end
             3'b100: begin // dec
                 r_out <= in_a - 8'd1;
+                if (in_a == 8'd0) begin
+                flag_zero <= 1;
+                flag_carry <= 1;
+                end else if (r_out <= 0) begin
+                flag_zero <= 1;
+                flag_carry <= 0;
+                end else begin
+                    flag_zero <= 0;
+                    flag_carry <= 0;
+                end
             end
             3'b101: begin // and
                 r_out <= und;
                 flag_carry <= 0;
                 if (und == 8'd0) flag_zero <= 1;
+                else flag_zero <= 0;
             end   
             3'b110: begin // or
                 r_out <= oder;
                 flag_carry <= 0;
                 if (oder == 8'd0) flag_zero <= 1;
+                else flag_zero <= 0;
             end
             3'b111: begin //xor
                 r_out <= xoder;
                 flag_carry <= 0;
                 if (xoder == 8'd0) flag_zero <= 1;
+                else flag_zero <= 0;
             end
             default: r_out <= 8'bx;
         endcase

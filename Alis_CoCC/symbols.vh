@@ -7,6 +7,9 @@
 `define ALU_OR       (3'b110)
 `define ALU_XOR      (3'b111)
 
+`define REG_A        (3'b000)
+`define REG_H        (3'b111)
+
 `define CYCLE_CLK1   (3'b001)
 `define RAM_CLK1     (3'b010)
 `define INTERNAL_CLK (3'b100)
