@@ -26,7 +26,7 @@
 `define PATTERN_CALL (8'b00_000_010)
 `define PATTERN_RET  (8'b00_000_011) 
 `define PATTERN_CMP  (8'b00_000_100) 
-`define PATTERN_ALU  (8'b00_010_???) 
+`define PATTERN_ALU  (8'b00_01?_???) 
 `define PATTERN_LDI  (8'b01_000_???) 
 `define PATTERN_LDX  (8'b01_001_???) 
 `define PATTERN_STX  (8'b01_010_???) 
