@@ -1,4 +1,4 @@
-`include "symbols.vh"
+//`include "symbols.vh"
 module ram(inout wire[7:0] data_bus, input wire we, input wire oe, input wire[7:0] addr, input wire clk);
 reg[7:0] mem[0:255];
 

@@ -1,6 +1,9 @@
 `include "symbols.vh"
 module fsm(input [7:0] opcode, input clk, input reset, output reg [7:0] state = 8'b0);
     reg [3:0] cycle;
+    wire reset_cycle;
+    reg on = 1;
+    reg off = 0;
 
     always @(negedge clk) begin
         cycle = cycle + 1;
@@ -9,7 +12,7 @@ module fsm(input [7:0] opcode, input clk, input reset, output reg [7:0] state = 
         end
     end
 
-    assign reset_cycle = (state == `STATE_NEXT | state == `STATE_HLT);
+    assign reset_cycle = (state == `STATE_NEXT) ? on : ((state == `STATE_HALT)? on : off);
 
     always @(posedge clk) begin
         case(cycle)
@@ -17,13 +20,13 @@ module fsm(input [7:0] opcode, input clk, input reset, output reg [7:0] state = 
             `T1: state <= `STATE_FETCH_INST;
             
             `T2: case(opcode)
-                `OP_HLT: state <= `STATE_HLT;
+                `OP_HLT: state <= `STATE_HALT;
                 `OP_NOP: state <= `STATE_NEXT;
                 `OP_MOV: state <= `STATE_MOV_REG;
                 `OP_LDI: state <= `STATE_FETCH_PC;
                 `OP_LDX: state <= `STATE_FETCH_PC;
                 `OP_STX: state <= `STATE_FETCH_PC;
-                `OP_CMP: state <= `STAET_ALU_EXEC;
+                `OP_CMP: state <= `STATE_ALU_EXEC;
                 `OP_PUSH: state <= `STATE_FETCH_SP;
                 `OP_POP: state <= `STATE_INC_SP;
                 `OP_JMP: state <= `STATE_FETCH_PC;
@@ -54,7 +57,7 @@ module fsm(input [7:0] opcode, input clk, input reset, output reg [7:0] state = 
                 `OP_POP: state <= `STATE_SET_REG;
                 `OP_JMP: state <= `STATE_NEXT;
                 `OP_CALL: state <= `STATE_FETCH_SP;
-                `OP_RET: state <= `State_RET;
+                `OP_RET: state <= `STATE_RET;
             endcase
 
             `T5: case(opcode)
@@ -67,6 +70,7 @@ module fsm(input [7:0] opcode, input clk, input reset, output reg [7:0] state = 
 
             `T6: state <= `STATE_TMP_JUMP;
             `T7: state <= `STATE_NEXT;
+        endcase
     end
 
 endmodule

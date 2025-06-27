@@ -1,4 +1,4 @@
-`include "symbols.vh"
+//`include "symbols.vh"
 module tristate_buffer(input wire oe, input wire[7:0] in, inout wire[7:0] out);
     assign out = oe ? in : 1'bz;
 endmodule
@@ -34,7 +34,7 @@ endmodule
 module regblock(input wire we, input wire oe, input wire[2:0] oaddr, input wire[2:0] iaddr, input wire clk, input wire[7:0] idata, output wire[7:0] odata, output wire[7:0] rega, output wire[7:0] regb);
     reg [7:0] registers[7:0];
 
-    assign odata = oe ? register[oaddr] : 8'bz;
+    assign odata = oe ? registers[oaddr] : 8'bz;
     assign rega = registers[0];
     assign regb = registers[1];
 
