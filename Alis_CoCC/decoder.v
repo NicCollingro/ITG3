@@ -44,6 +44,8 @@ case (opcode)                   //TODO sta und lda
     `OP_LDX:   iaddr <= operand2;
     `OP_MOV:   iaddr <= operand1;
     `OP_POP:   iaddr <= operand2;
+    //LDA UND STA
+    `OP_STA:   iaddr <= `REG_A;
     default:   iaddr <= 3'bx;
 endcase
 end
@@ -53,7 +55,8 @@ case ( opcode )
     `OP_CALL:  oaddr <= `REG_H;
     `OP_MOV:   oaddr <= operand2;
     `OP_STX:   oaddr <= operand2;
-    `OP_PUSH:  oaddr <= operand2;		
+    `OP_PUSH:  oaddr <= operand2;	
+    //LDA UND STA	
     default:   oaddr <= 3'bx;
 endcase
 end
