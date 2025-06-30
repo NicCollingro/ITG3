@@ -22,6 +22,8 @@ casez (instruction)
     `PATTERN_RET:  opcode <= `OP_RET;			
     `PATTERN_HLT:  opcode <= `OP_HLT;
     `PATTERN_CMP:  opcode <= `OP_CMP;
+    `PATTERN_LDA:  opcode <= `OP_LDA;
+    `PATTERN_STA:  opcode <= `OP_STA;
 default : opcode <= instruction;
 endcase
 end
@@ -35,7 +37,7 @@ endcase
 end
 
 always @ (*) begin
-case (opcode)
+case (opcode)                   //TODO sta und lda 
     `OP_ALU:   iaddr <= `REG_A; //Akumulator 
     `OP_CALL:  iaddr <= `REG_H; //rechenregister
     `OP_LDI:   iaddr <= operand2;
