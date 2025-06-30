@@ -1,0 +1,37 @@
+
+The CoCC-Assembler converts the instruction mnemonics to CoCC-instruction
+tokens. The following instructions are recognized.
+
+Legend:
+
+R, R1, R2	Registers A-H
+I		Immediate (constant value in dec or hex format)
+#v		address of variable v
+
+
+Instructions:
+
+ldi R I				load I to R
+ldi R %v			load addres of v to R
+ldx R %v			load value of v to R
+stx R %v			store R to v
+mov R1 R2			copy R2 to R1
+push R, pop R			push/pop from/to R to/from stack
+call %label, ret		call/ret to/from suboutine at %label
+jmp, jz, jnz, jc, jnc %label	different jumps to %label
+cmp, add, sub, ...		ALU modes
+rin R, rout R			I/O to/from R
+min %v, mout %v			I/O to/from %v
+
+
+Syntax:
+
+; comment
+.text
+	instructions	; comment
+	...
+label:
+	instructions
+	...
+.data
+	v = 0
