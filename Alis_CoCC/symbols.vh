@@ -27,6 +27,8 @@
 `define PATTERN_RET  (8'b00_000_011) 
 `define PATTERN_CMP  (8'b00_000_100) 
 `define PATTERN_ALU  (8'b00_01?_???) 
+`define PATTERN_LDA  (8'b00_100_???)
+`define PATTERN_STA  (8'b01_101_???)
 `define PATTERN_LDI  (8'b01_000_???) 
 `define PATTERN_LDX  (8'b01_001_???) 
 `define PATTERN_STX  (8'b01_010_???) 
@@ -35,12 +37,15 @@
 `define PATTERN_JMP  (8'b01_101_???) 
 `define PATTERN_MOV  (8'b10_???_???) 
 
+
 `define OP_NOP  (8'b00_000_000)
 `define OP_HLT  (8'b00_000_001)
 `define OP_CALL (8'b00_000_010)
 `define OP_RET  (8'b00_000_011)
 `define OP_CMP  (8'b00_000_100)
 `define OP_ALU  (8'b00_010_000)
+`define OP_LDA  (8'b00_100_000)
+`define OP_STA  (8'b00_101_000)
 `define OP_LDI  (8'b01_000_000)
 `define OP_LDX  (8'b01_001_000)
 `define OP_STX  (8'b01_010_000)
@@ -48,6 +53,7 @@
 `define OP_POP  (8'b01_100_000)
 `define OP_JMP  (8'b01_101_000)
 `define OP_MOV  (8'b10_000_000)
+
 
 `define STATE_NEXT             (8'd0)
 `define STATE_HALT             (8'd1)
@@ -67,4 +73,5 @@
 `define STATE_RET              (8'd16)
 `define STATE_STACK_REG        (8'd17)
 `define STATE_MOUT_STORE       (8'd18)			
-`define STATE_ROUT_STORE       (8'd19)			
+`define STATE_ROUT_STORE       (8'd19)	
+`define STATE_SET_MAR          (8'd20)		
