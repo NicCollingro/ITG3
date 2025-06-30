@@ -1,0 +1,1 @@
+../Global_Files/MyProject.sdc

@@ -25,7 +25,7 @@ wire [7:0] instruction;
 wire [2:0] iaddr;
 wire [2:0] oaddr;
 wire [7:0] opcode;
-wire [2:0] alu_mode; 
+wire [3:0] alu_mode; 
 wire flag_carry, flag_zero;
 reg reset = 1'b0;               
 

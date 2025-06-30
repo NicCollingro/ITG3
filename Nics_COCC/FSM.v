@@ -32,6 +32,8 @@ module fsm(input [7:0] opcode, input clk, input reset, output reg [7:0] state = 
                 `OP_JMP: state <= `STATE_FETCH_PC;
                 `OP_CALL: state <= `STATE_FETCH_PC;
                 `OP_RET: state <= `STATE_INC_SP;
+                `OP_LDA: state <= `STATE_SET_MAR;
+                `OP_STA: state <= `STATE_SET_MAR;
             endcase
             
             `T3: case(opcode)
@@ -46,6 +48,8 @@ module fsm(input [7:0] opcode, input clk, input reset, output reg [7:0] state = 
                 `OP_JMP: state <= `STATE_JUMP;
                 `OP_CALL: state <= `STATE_SET_REG;
                 `OP_RET: state <= `STATE_FETCH_SP;
+                `OP_LDA: state <= `STATE_SET_REG;
+                `OP_STA: state <= `STATE_SET_MEM;
             endcase
 
             `T4: case(opcode)
@@ -58,6 +62,8 @@ module fsm(input [7:0] opcode, input clk, input reset, output reg [7:0] state = 
                 `OP_JMP: state <= `STATE_NEXT;
                 `OP_CALL: state <= `STATE_FETCH_SP;
                 `OP_RET: state <= `STATE_RET;
+                `OP_LDA: state <= `STATE_NEXT;
+                `OP_STA: state <= `STATE_NEXT;
             endcase
 
             `T5: case(opcode)

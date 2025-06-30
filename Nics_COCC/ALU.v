@@ -1,6 +1,6 @@
 //`include "symbols.vh"
 module alu(input wire clk, input wire [7:0] in_a, input wire [7:0] in_b, 
-input wire [2:0] mode, input wire eo,
+input wire [3:0] mode, input wire eo,
 inout wire [7:0] out, output reg flag_zero = 0, 
 output reg flag_carry = 0, input wire ee);
 
@@ -12,52 +12,63 @@ wire [7:0] sub;
 wire [7:0] und;
 wire [7:0] oder;
 wire [7:0] xoder;
-wire cad, subc;
+wire [7:0] WurzelWire;
+wire [7:0] prod_low;
+wire [7:0] prod_high;
+wire cad, subc, mcry;
 Volladdierer vadder(.in_a(in_a), .in_b(in_b), .out_sum(add), .out_carry(cad));
 Vollsubtrahierer nadder(.in_a(in_a), .in_b(in_b), .out_diff(sub), .out_carry(subc));
 Band land(.a(in_a), .b(in_b), .out(und));
 Bor gore(.a(in_a), .b(in_b), .out(oder));
 Bixbi hixbi(.a(in_a), .b(in_b), .out(xoder));
+sqrt wurzel(.A(in_a), .Sqrt(WurzelWire));
+multiplier multiplizierer(.in_a(in_a), .in_b(in_b), .out_hi(prod_high), .out_lo(prod_low), .carry(mcry));
 
 always @(posedge clk) begin
     if (ee) begin
         case (mode)
-            3'b000: begin //add
+            `ALU_ADD: begin //add
                 r_out <= add;
                 flag_carry <= cad;
             end     
-            3'b001: begin //adc
+            `ALU_ADC: begin //adc
                 r_out <= (add + cad);
                 flag_carry <= cad;
             end   
-            3'b010: begin //sub
+            `ALU_SUB: begin //sub
                 r_out <= sub;
                 flag_carry <= subc;
             end   
-            3'b011: begin // inc
+            `ALU_INC: begin // inc
                 r_out <= in_a + 8'd1;
-                if (in_a == 3'd255) begin
+                if (in_a == 255) begin
                     flag_carry <= 1;
                 end
             end    
-            3'b100: begin // dec
+            `ALU_DEC: begin // dec
                 r_out <= in_a - 8'd1;
                 if (in_a == 3'd0) begin
                     flag_carry <= 1;
                 end
             end    
-            3'b101: begin // and
+            `ALU_AND: begin // and
                 r_out <= und;
                 flag_carry <= 0;
             end   
-            3'b110: begin // or
+            `ALU_OR: begin // or
                 r_out <= oder;
                 flag_carry <= 0;
             end    
-            3'b111: begin //xor
+            `ALU_XOR: begin //xor
                 r_out <= xoder;
                 flag_carry <= 0;
             end    
+            `ALU_ADD: begin //sqrt
+                r_out <= WurzelWire;
+                flag_carry <= 0;
+            end
+            `ALU_MLO:  {flag_carry, r_out} = {mcry, prod_low};
+            `ALU_MHI:  {flag_carry, r_out} = {mcry, prod_high};
             default: r_out <= 8'bx;
         endcase
         flag_zero <= r_out == 0;
@@ -145,4 +156,43 @@ module Bixbi (
     output [7:0] out
 );
     assign out = a ^ b;
+endmodule
+
+module sqrt(input [7:0] A, output [7:0] Sqrt);
+    //Da ich nur 8 bits bekomme kann ich das auch hardcoden. Ich bekomme maximal einen wert von 512 => max 22^2
+    assign Sqrt = (A >= 484) ? 22 : (A >= 441) ? 21 : (A >= 400) ? 20 : (A >= 361) ? 19 : (A >= 324) ? 18 : (A >= 289) ? 17 : (A >= 256) ? 16 : (A >= 225) ? 15 : (A >= 196) ? 14 : (A >= 169) ? 13
+        : (A >= 144) ? 12: (A >= 121) ? 11 : (A >= 100) ? 10 : (A >=  81) ?  9 : (A >=  64) ?  8 : (A >=  49) ?  7 : (A >=  36) ?  6 : (A >=  25) ?  5 : (A >=  16) ?  4 : (A >=   9) ?  3
+        : (A >=   4) ?  2 : (A >=   1) ?  1 : 0;
+endmodule
+
+module multiplier(
+  input  wire[7:0] in_a,
+  input  wire[7:0] in_b,
+  output wire[7:0] out_lo,
+  output wire[7:0] out_hi,
+  output wire      carry
+);
+
+  generate
+  genvar j;
+  for (j=0; j<8; j=j+1) begin : partial
+    wire[7:0] val = {in_a[7] & in_b[j], 
+                     in_a[6] & in_b[j], 
+                     in_a[5] & in_b[j], 
+                     in_a[4] & in_b[j], 
+                     in_a[3] & in_b[j], 
+                     in_a[2] & in_b[j], 
+                     in_a[1] & in_b[j], 
+                     in_a[0] & in_b[j]};
+  end
+  endgenerate
+    
+  assign {carry, out_hi, out_lo} =   (partial[0].val << 0)
+                                   + (partial[1].val << 1)
+                                   + (partial[2].val << 2)
+                                   + (partial[3].val << 3)
+                                   + (partial[4].val << 4)
+                                   + (partial[5].val << 5)
+                                   + (partial[6].val << 6)
+                                   + (partial[7].val << 7);
 endmodule

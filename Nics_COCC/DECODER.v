@@ -1,5 +1,5 @@
 //`include "symbols.vh"
-module decoder(input wire [7:0] instruction, output reg [2:0] iaddr,output reg [2:0] oaddr, output wire[2:0] operand1, output wire[2:0] operand2, output reg[7:0] opcode, output reg[2:0] alu_mode);
+module decoder(input wire c_da, input wire [7:0] instruction, output reg [2:0] iaddr,output reg [2:0] oaddr, output wire[2:0] operand1, output wire[2:0] operand2, output reg[7:0] opcode, output reg[3:0] alu_mode);
     assign operand1 = instruction[5:3];
     assign operand2 = instruction[2:0];
 
@@ -27,7 +27,7 @@ module decoder(input wire [7:0] instruction, output reg [2:0] iaddr,output reg [
         case ( opcode )
             `OP_ALU : alu_mode <= operand2;
             `OP_CMP : alu_mode <= `ALU_SUB;
-        default : alu_mode <= 3'bx;
+        default : alu_mode <= 4'bx;
     endcase
     end
     // iaddr - Decoder
@@ -38,6 +38,7 @@ module decoder(input wire [7:0] instruction, output reg [2:0] iaddr,output reg [
             //`OP_IN : iaddr <= [...]
             `OP_LDX : iaddr <= operand2;
             `OP_LDI : iaddr <= operand2;
+            `OP_LDA : iaddr <= operand2;
             `OP_MOV : iaddr <= operand1;
             `OP_POP : iaddr <= operand2;
         default : iaddr <= 3'bx;
@@ -49,6 +50,8 @@ module decoder(input wire [7:0] instruction, output reg [2:0] iaddr,output reg [
             `OP_CALL:  oaddr <= `REG_H;
             `OP_MOV:   oaddr <= operand2;
             `OP_STX:   oaddr <= operand2;
+            `OP_LDA:   oaddr <= `REG_A;
+            `OP_STA:   oaddr <= c_da? `REG_A : operand2;
             `OP_PUSH:  oaddr <= operand2;
             //`OP_ROUT:  oaddr <= operand2;
         endcase

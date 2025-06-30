@@ -1,0 +1,12 @@
+#!/bin/tcsh -f
+
+./asm.py ../Tests/test_p1.asm > rom.hex \
+&& ./top_level_tb | egrep "OUTPUT|INPUT|FLAGS|REG" > /tmp/out1
+diff -q ../Tests/test_p1.out /tmp/out1 && echo "Part 1 OK" || echo "Part1 ERR"
+
+
+# GPIO-Test
+./asm.py ../Tests/test_p2.asm > rom.hex \
+&& ./top_level_tb | egrep "OUTPUT|INPUT|FLAGS|REG" > /tmp/out1
+diff -q ../Tests/test_p2.out /tmp/out1 && echo "Part 2 OK" || echo "Part 2 ERR"
+
