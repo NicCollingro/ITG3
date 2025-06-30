@@ -1,66 +1,116 @@
-module ALU(input wire clk, input wire [7:0] in_a, input wire [7:0] in_b, 
-input wire [2:0] mode, input wire eo,
+module alu(input wire [7:0] in_a, input wire [7:0] in_b, 
+input wire [4:0] mode, input wire eo,
 inout wire [7:0] out, output reg flag_zero = 0, 
 output reg flag_carry = 0, input wire ee);
 
 reg [7:0] r_out = 8'b0;
+//wire [7:0] r_out = 8'b0; // bomba komba
 assign out = (eo) ? r_out : 8'bz;
 wire [7:0] add;
 wire [7:0] sub;
 wire [7:0] und;
 wire [7:0] oder;
 wire [7:0] xoder;
+wire [7:0] sqrt;
 wire cad, subc;
 Volladdierer vadder(.in_a(in_a), .in_b(in_b),.out_sum(add), .out_carry(cad));
 Vollsubtrahierer nadder(.in_a(in_a), .in_b(in_b),.out_diff(sub), .out_carry(subc));
 Band land(.a(in_a), .b(in_b), .out(und));
 Bor gore(.a(in_a), .b(in_b), .out(oder));
 Bixbi hixbi(.a(in_a), .b(in_b), .out(xoder));
+SQRT squirty (.A(in_a), .sqrt(sqrt));
+/*bombinatorisch 
+assign r_out = (mode == 3'b000) ? add : (mode == 3'b001) ? (add+cad) : (mode == 3'b010) ? sub : (mode == 3'b011) ? (in_a + 8'd1) : 
+(mode == 3'b100) ? (in_a - 8'd1) : (mode == 3'b101) ? und : (mode == 3'b110) ? oder : (mode == 3'b111) ? xoder : 8'bx;
 
-always @(posedge clk) begin
+assign flag_carry = (mode == 3'b000) ? cad : (mode == 3'b001) ? cad : (mode == 3'b010) ? subc : (mode == 3'b011) ? 8'd0 : 
+(mode == 3'b100) ? 8'd0 : (mode == 3'b101) ? 8'd0 : (mode == 3'b110) ? 8'd0 : (mode == 3'b111) ? 8'd0 : 8'bx;
+
+assign flag_zero = (r_out == 8'd0) ? 1'd1 : 1'd0;
+*/
+//nicht komb
+always @(*) begin
     if (ee) begin
         case (mode)
-            3'b000: begin //add
+            `ALU_ADD: begin //add
                 r_out <= add;
                 flag_carry <= cad;
                 if  (add == 8'd0) flag_zero <= 1;
+                else flag_zero <= 0;
             end     
-            3'b001: begin //adc
+            `ALU_ADC: begin //adc
                 r_out <= (add + cad);
                 flag_carry <= cad;
                 if  ((add + cad) == 8'd0) flag_zero <= 1;
+                else flag_zero <= 0;
             end   
-            3'b010: begin //sub
+            `ALU_SUB: begin //sub
                 r_out <= sub;
                 flag_carry <= subc;
                 if  (sub == 8'd0) flag_zero <= 1;
+                else flag_zero <= 0;
             end   
-            3'b011: begin // inc
+            `ALU_INC: begin // inc
                 r_out <= in_a + 8'd1;
-            end    
-            3'b100: begin // dec
+                if (in_a == 8'd255) begin
+                flag_zero <= 1;
+                flag_carry <= 1;
+            end else if (r_out <= 0) begin
+                flag_zero <= 1;
+                flag_carry <= 0;
+                end else begin
+                    flag_zero <= 0;
+                    flag_carry <= 0;
+                end
+            end
+            `ALU_DEC: begin // dec
                 r_out <= in_a - 8'd1;
-            end    
-            3'b101: begin // and
+                if (in_a == 8'd0) begin
+                flag_zero <= 1;
+                flag_carry <= 1;
+                end else if (r_out <= 0) begin
+                flag_zero <= 1;
+                flag_carry <= 0;
+                end else begin
+                    flag_zero <= 0;
+                    flag_carry <= 0;
+                end
+            end
+            `ALU_AND: begin // and
                 r_out <= und;
                 flag_carry <= 0;
                 if (und == 8'd0) flag_zero <= 1;
+                else flag_zero <= 0;
             end   
-            3'b110: begin // or
+            `ALU_OR: begin // or
                 r_out <= oder;
                 flag_carry <= 0;
                 if (oder == 8'd0) flag_zero <= 1;
-            end    
-            3'b111: begin //xor
+                else flag_zero <= 0;
+            end
+            `ALU_XOR: begin //xor
                 r_out <= xoder;
                 flag_carry <= 0;
                 if (xoder == 8'd0) flag_zero <= 1;
-            end    
+                else flag_zero <= 0;
+            end
+            `ALU_SQRT: begin
+                r_out <= sqrt;
+                flag_carry <= 0;
+                if (xoder == 8'd0) flag_zero <= 1;
+                else flag_zero <= 0;
+            end
             default: r_out <= 8'bx;
         endcase
     end
     
 end
+endmodule
+
+module SQRT(input [7:0] A, output [7:0] Sqrt);
+    assign Sqrt = (A >= 484) ? 22 : (A >= 441) ? 21 : (A >= 400) ? 20 : (A >= 361) ? 19 : (A >= 324) ? 18 : (A >= 289) ? 17 : (A >= 256) ? 16 : (A >= 225) ? 15 : (A >= 196) ? 14 : (A >= 169) ? 13
+        : (A >= 144) ? 12: (A >= 121) ? 11 : (A >= 100) ? 10 : (A >=  81) ?  9 : (A >=  64) ?  8 : (A >=  49) ?  7 : (A >=  36) ?  6 : (A >=  25) ?  5 : (A >=  16) ?  4 : (A >=   9) ?  3
+        : (A >=   4) ?  2 : (A >=   1) ?  1 : 0;
 endmodule
 
 module addierer (
