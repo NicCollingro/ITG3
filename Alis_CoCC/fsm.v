@@ -29,8 +29,8 @@ always @(posedge clk) begin
             `OP_JMP:  state <= `STATE_FETCH_PC;
             `OP_CALL: state <= `STATE_FETCH_PC;
             `OP_RET:  state <= `STATE_INC_SP; 
-            `OP_LDA:  state <= `STATE_SET_MAR:
-            `OP_STA:  state <= `STATE_SET_MAR:
+            `OP_LDA:  state <= `STATE_SET_MAR;
+            `OP_STA:  state <= `STATE_SET_MAR;
         endcase
     end
     4'd3: begin                      //T3
