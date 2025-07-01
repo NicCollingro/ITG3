@@ -102,6 +102,31 @@ always @(*) begin
                 if (xoder == 8'd0) flag_zero <= 1;
                 else flag_zero <= 0;
             end
+            `ALU_SHL: begin
+                 r_out <= in_a << in_b;
+                 flag_carry <= 0;
+                 flag_zero <= 0;
+            end
+            `ALU_SHR: begin
+                 r_out <= in_a >> in_b;
+                 flag_carry <= 0;
+                 flag_zero <= 0;
+            end
+            `ALU_ROL: begin 
+                r_out <= {in_a[6:0], in_a[7]};
+                flag_carry <= 0;
+                flag_zero <= 0;
+            end
+            `ALU_ROR: begin
+                r_out <= {in_a[0], in_a[7:1]};
+                flag_carry <= 0;
+                flag_zero <= 0;
+            end
+            `ALU_NOT: begin 
+                r_out <= ~in_a;
+                flag_carry <= 0;
+                flag_zero <= 0;
+            end
             default: r_out <= 8'bx;
         endcase
     end
