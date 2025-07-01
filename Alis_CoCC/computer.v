@@ -18,15 +18,15 @@ wire [7:0] instruction;
 wire [2:0] iaddr;
 wire [2:0] oaddr;
 wire [7:0] opcode;
-wire [2:0] alu_mode; 
+wire [3:0] alu_mode; 
 wire flag_carry, flag_zero;
 reg reset = 1'b0;                     //sollens ja ohne Reset machen 
 
 wire c_ii, c_ci, c_co, c_cs, c_rfi, c_rfo, c_eo, c_ee;
-wire c_mi, c_ro, c_ri, c_so, c_sd, c_si, c_halt;
+wire c_mi, c_ro, c_ri, c_so, c_sd, c_si, c_halt, c_da;
 
 decoder deco(.instruction(instruction), .iaddr(iaddr), .oaddr(oaddr), .operand1(operand1), .operand2(operand2),
-.opcode(opcode), .alu_mode(alu_mode));
+.opcode(opcode), .alu_mode(alu_mode), .c_da(c_da));
 
 control rolo (.state(state), .operand1(operand1), .operand2(operand2), .flag_carry(flag_carry),
 .flag_zero(flag_zero), .c_ii(c_ii), .c_ci(c_ci), .c_co(c_co), .c_cs(c_cs), .c_rfi(c_rfi),

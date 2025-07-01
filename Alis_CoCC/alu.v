@@ -1,5 +1,7 @@
+`include "symbols.vh"
+
 module alu(input wire [7:0] in_a, input wire [7:0] in_b, 
-input wire [4:0] mode, input wire eo,
+input wire [3:0] mode, input wire eo,
 inout wire [7:0] out, output reg flag_zero = 0, 
 output reg flag_carry = 0, input wire ee);
 
@@ -18,7 +20,7 @@ Vollsubtrahierer nadder(.in_a(in_a), .in_b(in_b),.out_diff(sub), .out_carry(subc
 Band land(.a(in_a), .b(in_b), .out(und));
 Bor gore(.a(in_a), .b(in_b), .out(oder));
 Bixbi hixbi(.a(in_a), .b(in_b), .out(xoder));
-SQRT squirty (.A(in_a), .sqrt(sqrt));
+SQRT squirty (.A(in_a), .Sqrt(sqrt));
 /*bombinatorisch 
 assign r_out = (mode == 3'b000) ? add : (mode == 3'b001) ? (add+cad) : (mode == 3'b010) ? sub : (mode == 3'b011) ? (in_a + 8'd1) : 
 (mode == 3'b100) ? (in_a - 8'd1) : (mode == 3'b101) ? und : (mode == 3'b110) ? oder : (mode == 3'b111) ? xoder : 8'bx;

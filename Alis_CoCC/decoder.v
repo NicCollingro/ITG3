@@ -30,7 +30,7 @@ end
 
 always @ (*) begin
 case ( opcode )
-`OP_ALU : alu_mode <= operand2;
+`OP_ALU : alu_mode <= instruction[3:0];
 `OP_CMP : alu_mode <= `ALU_SUB;
 default : alu_mode <= 4'bx;
 endcase
