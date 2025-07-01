@@ -5,7 +5,7 @@ input wire [2:0]operand2, input wire flag_carry, input wire flag_zero,
 output wire c_ii, output wire c_ci, output wire c_co, output wire c_cs, 
 output wire c_rfi, output wire c_rfo, output wire c_eo, output wire c_ee, 
 output wire c_mi, output wire c_ro, output wire c_ri, output wire c_so, 
-output wire c_sd, output wire c_si, output wire c_halt);
+output wire c_sd, output wire c_si, output wire c_halt, output wire c_da);
 
 wire jump_allowed = (operand2 == `JMP_JMP) ||
     ((operand2 == `JMP_JZ)  &&  flag_zero) ||
@@ -13,6 +13,8 @@ wire jump_allowed = (operand2 == `JMP_JMP) ||
     ((operand2 == `JMP_JC)  &&  flag_carry) ||
     ((operand2 == `JMP_JNC) && ~flag_carry);
 
+//Decoder 
+assign c_da = (state == `STATE_SET_MAR) ? 1 : 0;
 //IR
 assign c_ii = (state == `STATE_FETCH_INST) ? 1 : 0; 
 //PC

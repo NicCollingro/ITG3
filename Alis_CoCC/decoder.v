@@ -1,6 +1,6 @@
 `include "symbols.vh"
 
-module decoder (input wire [7:0] instruction, output reg [2:0] iaddr, output reg [2:0] oaddr,
+module decoder (input wire [7:0] instruction, input wire c_da, output reg [2:0] iaddr, output reg [2:0] oaddr,
 output wire [2:0] operand1,  output wire [2:0] operand2 , output reg[7:0] opcode,
 output reg [3:0] alu_mode);
 
@@ -45,7 +45,7 @@ case (opcode)                   //TODO sta und lda
     `OP_MOV:   iaddr <= operand1;
     `OP_POP:   iaddr <= operand2;
     //LDA UND STA
-    `OP_STA:   iaddr <= `REG_A;
+    `OP_LDA:   iaddr <= operand2;
     default:   iaddr <= 3'bx;
 endcase
 end
@@ -56,7 +56,12 @@ case ( opcode )
     `OP_MOV:   oaddr <= operand2;
     `OP_STX:   oaddr <= operand2;
     `OP_PUSH:  oaddr <= operand2;	
-    //LDA UND STA	
+    //LDA UND STA	    
+    `OP_LDA:   oaddr <= `REG_A;
+    `OP_STA:   begin
+        if (c_da) oaddr <= `REG_A;
+        else oaddr <= operand2;
+    end
     default:   oaddr <= 3'bx;
 endcase
 end
