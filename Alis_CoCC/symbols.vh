@@ -7,6 +7,12 @@
 `define ALU_OR       (4'b0110)
 `define ALU_XOR      (4'b0111)
 `define ALU_SQRT     (4'b1000)
+`define ALU_SHL      (4'b1001)
+`define ALU_SHR      (4'b1010)
+`define ALU_ROL      (4'b1011)
+`define ALU_ROR      (4'b1100)
+`define ALU_NOT      (4'b1101)
+
 
 `define REG_A        (3'b000)
 `define REG_H        (3'b111)
