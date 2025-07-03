@@ -2,7 +2,6 @@ module counter (input wire clk, input wire down, input wire reset,
 input wire set, input wire [7:0] in, input wire oe,  output wire [7:0] out);
 reg [7:0] r_out = 8'd0;
 assign out = (oe) ? r_out : 8'bz;
-
 always @(posedge clk) begin
     if (reset) begin
          r_out <= 8'd0;
@@ -16,5 +15,4 @@ always @(posedge clk) begin
         end 
     end
 end
-
 endmodule

@@ -31,6 +31,7 @@ always @(posedge clk) begin
             `OP_RET:  state <= `STATE_INC_SP; 
             `OP_LDA:  state <= `STATE_SET_MAR;
             `OP_STA:  state <= `STATE_SET_MAR;
+            default:  state <= `STATE_NEXT;
         endcase
     end
     4'd3: begin                      //T3
@@ -48,6 +49,7 @@ always @(posedge clk) begin
             `OP_RET:  state <= `STATE_FETCH_SP;
             `OP_LDA:  state <= `STATE_SET_REG;
             `OP_STA:  state <= `STATE_SET_MEM;
+            default:  state <= `STATE_NEXT;
         endcase
     end
     4'd4: begin                     //T4
@@ -63,6 +65,7 @@ always @(posedge clk) begin
         `OP_RET:  state <= `STATE_RET;
         `OP_LDA:  state <= `STATE_NEXT;
         `OP_STA:  state <= `STATE_NEXT;
+        default:  state <= `STATE_NEXT;
         endcase
     end
     4'd5: begin                     //T5
@@ -72,20 +75,22 @@ always @(posedge clk) begin
         `OP_POP:  state <= `STATE_NEXT;
         `OP_CALL: state <= `STATE_STORE_PC;
         `OP_RET:  state <= `STATE_NEXT;
+        default:  state <= `STATE_NEXT;
         endcase
     end
     4'd6: begin                    //T6
         case(opcode) 
         `OP_CALL: state <= `STATE_TMP_JUMP;
+        default:  state <= `STATE_NEXT;
         endcase
     end
     4'd7: begin                    //T7
         case(opcode)
         `OP_CALL: state <= `STATE_NEXT;
+        default:  state <= `STATE_NEXT;
         endcase
     end
     default: state <= 8'bx; //KEK
     endcase 
 end
-
 endmodule

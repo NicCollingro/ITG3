@@ -8,7 +8,7 @@ assign data_bus = 8'bz;
 wire cycle_clk, ram_clk, internal_cl;
 wire halt;
 
-clocks cocks(.clk(clk), .halt(halt), .reset(reset), .cycle_clk(cycle_clk), .ram_clk(ram_clk), .internal_clk(internal_clk));
+clocks cocks(.clk(clk), .halt(c_halt), .reset(reset), .cycle_clk(cycle_clk), .ram_clk(ram_clk), .internal_clk(internal_clk));
 
 wire [7:0] state;
 wire [2:0] operand1;
@@ -31,7 +31,7 @@ decoder deco(.instruction(instruction), .iaddr(iaddr), .oaddr(oaddr), .operand1(
 control rolo (.state(state), .operand1(operand1), .operand2(operand2), .flag_carry(flag_carry),
 .flag_zero(flag_zero), .c_ii(c_ii), .c_ci(c_ci), .c_co(c_co), .c_cs(c_cs), .c_rfi(c_rfi),
 .c_rfo(c_rfo), .c_eo(c_eo), .c_ee(c_ee), .c_mi(c_mi), .c_ro(c_ro), .c_ri(c_ri), .c_so(c_so),
-.c_sd(c_sd), .c_si(c_si), .c_halt(c_halt));
+.c_sd(c_sd), .c_si(c_si), .c_halt(c_halt), .c_da(c_da));
 
 wire [7:0] reg_a; 
 wire [7:0] reg_b;
@@ -42,7 +42,12 @@ regblock coc(.clk(internal_clk), .we(c_rfi), .oaddr(oaddr), .iaddr(iaddr), .idat
 alu malu(.in_a(reg_a), .in_b(reg_b), .mode(alu_mode), .eo(c_eo), .out(data_bus),
 .flag_zero(flag_zero), .flag_carry(flag_carry), .ee(c_ee));
 
-counter pc(.clk(internal_clk ), .down(1'd0), .set(c_cs), .reset(reset), 
+wire pcclk;
+wire spclk;
+assign pcclk = (c_ci & internal_clk);
+assign pcclk = (c_si & internal_clk);
+
+counter pc(.clk(pcclk), .down(1'd0), .set(c_cs), .reset(reset), 
 .in(data_bus), .oe(c_co), .out(data_bus));
 
 counter schdeck(.clk(internal_clk), .oe(c_so), .in(8'b11111111), 
@@ -55,10 +60,5 @@ register IRelai(.clk(internal_clk), .en(c_ii), .in(data_bus), .out(instruction))
 ram bazamba(.clk(ram_clk), .we(c_ri), .oe(c_ro), .addr(addrbus), .bus(data_bus));
 
 fsm FINITO(.clk(cycle_clk), .opcode(opcode), .reset(reset), .state(state));
-
-initial begin
-        $dumpfile("test.vcd");
-        $dumpvars(0, computer); 
-end
 
 endmodule
