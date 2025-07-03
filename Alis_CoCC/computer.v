@@ -36,8 +36,8 @@ control rolo (.state(state), .operand1(operand1), .operand2(operand2), .flag_car
 wire [7:0] reg_a; 
 wire [7:0] reg_b;
 
-regblock coc(.clk(internal_clk), .we(c_rfi), .oaddr(oaddr), .iaddr(iaddr), .idata(data_bus), 
-.oe(c_rfo), .odata(data_bus), .rega(reg_a), .regb(reg_b));
+regblock coc(.clk(internal_clk), .we(c_rfi), .iaddr(iaddr), .idata(data_bus), 
+.oe(c_rfo), .oaddr(oaddr), .odata(data_bus), .rega(reg_a), .regb(reg_b));
 
 alu malu(.in_a(reg_a), .in_b(reg_b), .mode(alu_mode), .eo(c_eo), .out(data_bus),
 .flag_zero(flag_zero), .flag_carry(flag_carry), .ee(c_ee));

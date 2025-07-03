@@ -1,8 +1,13 @@
-module clocks (
-input wire clk, input wire halt , input wire reset , 
-output reg cycle_clk = 0, output reg ram_clk = 0, output reg internal_clk = 0 
+module clocks(
+  input  wire clk,
+  input  wire halt,
+  input  wire reset,
+  output reg  cycle_clk = 0,
+  output reg  ram_clk = 0,
+  output reg  internal_clk = 0
 );
-reg [2:0] cnt = 3'b001;
+
+  reg[2:0] cnt = 'b100;
 
   always @(posedge clk) begin
     if (~halt & ~reset) begin
@@ -16,4 +21,5 @@ reg [2:0] cnt = 3'b001;
       {cycle_clk, ram_clk, internal_clk} <= 3'b0;
     end
   end
+
 endmodule

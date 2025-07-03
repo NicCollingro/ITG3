@@ -9,9 +9,8 @@ always @(posedge clk) begin
     else begin
         if(set) r_out <= in;
         else begin
-            if (down) r_out <= r_out - 1'd1;
-            else
-            r_out <= r_out + 1;
+            if (down) r_out <= r_out - 1'b1;
+            else r_out <= r_out + 1'b1;
         end 
     end
 end

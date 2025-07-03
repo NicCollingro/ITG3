@@ -1,3 +1,17 @@
+module register(
+  input  wire 		clk,		
+  input  wire[7:0]	in,		
+  input  wire 		en,		
+  output reg[7:0] 	out = 8'b0	
+);
+
+  always @(posedge clk)
+    if (en)
+      out[7:0] <= in[7:0];
+
+endmodule
+
+/*
 module register (input wire clk , input wire en, 
 input wire [7:0] in, output wire [7:0] out);
 wire h1, h2, h3, h4, h5, h6, h7;
@@ -42,3 +56,4 @@ assign Q = ~(a && nq);
 assign nq = ~(b && Q); 
 
 endmodule
+*/
