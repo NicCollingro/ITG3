@@ -65,5 +65,4 @@ case ( opcode )
     default:   oaddr <= 3'bx;
 endcase
 end
-
 endmodule
