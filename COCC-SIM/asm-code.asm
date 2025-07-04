@@ -1,11 +1,9 @@
 .text 
-    ldx A %x
-    ldx B %y
+    ldi A 0 
+    ldo B 0
     ldi C 0
     
 
 
     hlt
 .data 
-    x=20
-    y=10
