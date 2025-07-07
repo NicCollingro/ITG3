@@ -1,4 +1,5 @@
-`include "symbols.vh"                          //FRAGE der Stackpointer hab ich jetzt noch nicht so verstanden 
+`include "symbols.vh"    
+`include "clock.v"                      //FRAGE der Stackpointer hab ich jetzt noch nicht so verstanden 
                                                // im skript steht auf 0xFF setzen also ahb ich ihn hier mal auf 8'b11111111 
 module computer (input wire clk);              // gesetzt aber was genau macht der und wieso 
 wire [7:0] data_bus;                           //also jetzt mal bei ner x86_64 CPU und ist der so ähnlich wie die pointer in C ?
@@ -42,15 +43,11 @@ regblock coc(.clk(internal_clk), .we(c_rfi), .iaddr(iaddr), .idata(data_bus),
 alu malu(.in_a(reg_a), .in_b(reg_b), .mode(alu_mode), .eo(c_eo), .out(data_bus),
 .flag_zero(flag_zero), .flag_carry(flag_carry), .ee(c_ee));
 
-wire pcclk;
-wire spclk;
-assign pcclk = (c_ci & internal_clk);
-assign pcclk = (c_si & internal_clk);
 
-counter pc(.clk(pcclk), .down(1'd0), .set(c_cs), .reset(reset), 
+counter pc(.clk(c_ci & internal_clk), .down(1'd0), .set(c_cs), .reset(reset), 
 .in(data_bus), .oe(c_co), .out(data_bus));
 
-counter schdeck(.clk(internal_clk), .oe(c_so), .in(8'b11111111), 
+counter schdeck(.clk(c_si & internal_clk), .oe(c_so), .in(8'b11111111), 
 .set(reset), .reset(reset), .down(c_sd), .out(data_bus));
 
 register MARina(.clk(internal_clk), .en(c_mi), .in(data_bus), .out(addrbus));
