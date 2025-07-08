@@ -1,39 +1,36 @@
 .text 
     lda E %x 
-    ldi F 0 ;Help
-    ldi G 0 ;End
-    ldi B 0
+    ldi F 0 ;count
+    ldi G 0 ;n
+    ldi B 0 :ncönter
     push B
-    push B
-start:
-    pop B 
-    lda A %x
-    cmp 
-    jz %end ;wenn 
 
-    pop B
-    ldi A 0 ;0 für Help 
-    cmp     ;1 für End
-    jz %ringHelp
-    jmp %ringEnd
+start:
+    mov B G
+    mov A E 
+    cmp
+    jz %end
+    jmp move
 
 end:
-
     hlt
 
-ringHelp:
-    mov B F
-    lda A %x
-    cmp 
-    jz %helpEnd
+move:
+    pop B
+    mov A G
+    cmp
+    jnz %rek
+    mov A F 
+    inc 
+    move F A
+    ldi B 0
+    psuh B
+    jmp start
 
-    
-
-ringEnd:
-
-helpEnd:
-    mov G H
-    jmp %end
+rek:
+    mov A G
+    dec
+    move 
 
 .data 
 x = 20
