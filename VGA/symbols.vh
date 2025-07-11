@@ -1,0 +1,9 @@
+`define BASECLK CLOCK_25 
+`define HRES 640 
+`define HSRT 656 
+`define HEND 752 
+`define HTOT 800 
+`define VRES 480 
+`define VSRT 490
+`define VEND 492 
+`define VTOT 525 
