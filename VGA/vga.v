@@ -22,5 +22,4 @@ always @(posedge clk) begin
     y <= o_vblank ? 0 : y + 1;
 end
 
-
 endmodule
