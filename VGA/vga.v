@@ -1,3 +1,6 @@
+`include "hsync.v"
+`include "vsync.v"
+
 module vga (
 input wire CLOCK_50,
 output wire o_hsync,
