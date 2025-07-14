@@ -5,8 +5,8 @@ module vsync(input wire i_clk, output reg o_vsync = 1'd1, output reg o_vblank = 
 reg [11:0] cnt = 12'd0;
 
     always @(posedge i_clk) begin
-        cnt <= (cnt < `VTOT) ? count + 12'd1 : 12'd0;
-        o_hsync <= (`VSRT <= cnt && cnt <= `VEND) ? 0 : 1;
-        o_hblank <= (cnt > `VRES) ? 1 : 0;
+        cnt <= (cnt < `VTOT) ? cnt + 12'd1 : 12'd0;
+        o_vsync <= (`VSRT <= cnt && cnt <= `VEND) ? 0 : 1;
+        o_vblank <= (cnt > `VRES) ? 1 : 0;
     end
 endmodule
