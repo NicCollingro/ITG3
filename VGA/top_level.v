@@ -1,3 +1,5 @@
+`include "vga"
+
 module top_level (
 input wire CLOCK_50, output wire GPIO_000, 
 output wire GPIO_001, output wire GPIO_003,
