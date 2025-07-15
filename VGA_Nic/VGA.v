@@ -14,9 +14,9 @@ module vsync(input i_clk, output reg o_vsync, output reg o_vblank);
     reg [11:0] count = 0;
 
     always @(posedge i_clk) begin
-        count <= (count >= `VTOT) ? 0 : count + 1;
         o_vsync <= (count >= `VSRT && count < `VEND) ? 0 : 1;
         o_vblank <= (count <= `VRES) ? 0 : 1;
+        count <= (count >= `VTOT) ? 0 : count + 1;
     end
 endmodule
 
@@ -37,7 +37,6 @@ module vga(input wire CLOCK_50, input wire [1:0] i_sel, output wire o_hsync, out
     always @(posedge hblank)
         y <= vblank ? 0 : y+1;
 
-    //Testbilder
     reg[9:0] cnt1 = 'b0;
     always @(posedge pixclk)
         cnt1 <= (vblank || hblank) ? 0 : cnt1+1;
