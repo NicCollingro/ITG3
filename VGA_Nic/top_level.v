@@ -9,5 +9,5 @@ module top_level(input wire CLOCK_50, output wire GPIO_000, output  wire GPIO_00
     assign HSYNC = GPIO_000;
     assign VSYNC = GPIO_001;
 
-    vga test(.CLOCK_50(CLOCK_50), .i_sel(2'b0), .o_hsync(HSYNC), .o_vsync(VSYNC), .o_red(R), .o_grn(G), .o_blu(B));
+    vga test(.CLOCK_50(CLOCK_50), .i_sel(2'b0), .o_hsync(GPIO_000), .o_vsync(GPIO_001), .o_red(GPIO_007), .o_grn(GPIO_005), .o_blu(GPIO_003));
 endmodule
