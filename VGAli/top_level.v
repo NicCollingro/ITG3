@@ -1,5 +1,6 @@
 `include "vga.v"
 
+/*
 module mop_level ();
 reg CLOCK_50 = 0;
 always #1 CLOCK_50 <= ~CLOCK_50;
@@ -13,6 +14,7 @@ initial begin
 end
 
 endmodule
+*/
 
 module top_level (
 input wire CLOCK_50, output wire GPIO_000, 
