@@ -29,8 +29,10 @@ module vga(input wire CLOCK_50, input wire [1:0] i_sel, output wire o_hsync, out
     hsync hs(.i_clk(pixclk), .o_hsync(o_hsync), .o_hblank(hblank));
     vsync vs(.i_clk(o_hsync), .o_vsync(o_vsync), .o_vblank(vblank));
 
-    reg [11:0] x = 0;
-    reg [11:0] y = 0;
+    reg [22:0] x = 0;
+    reg [22:0] y = 0;
+
+    reg [100:0] sum = 0;
 
     always @(posedge pixclk)
         x <= hblank ? 0 : x+1;
@@ -51,8 +53,10 @@ module vga(input wire CLOCK_50, input wire [1:0] i_sel, output wire o_hsync, out
         cnt3 =  cnt3 + 1;
     
     reg [2:0] color = 3'b0;
+
     always @(*) begin
-        color = ((x-320)*(x-320) + (y-240)*(y-240) < radius*radius) ? {1, 1, 1} | 3*{(x == 640 || x == 1 || y == 480 || y == 1) ? 1'b1 : 1'b0} : { 1'b0, 1'b0, 1'b0};
+        sum = (x-320)*(x-320) + (y-240)*(y-240);
+        color = ( sum < radius*radius) ? {1'b1, 1'b1, 1'b1} | 3*{(x == 640 || x == 1 || y == 480 || y == 1) ? 1'b1 : 1'b0} : { 1'b0, 1'b0, 1'b0};
     end
 
 assign {o_red, o_grn, o_blu} = color;
