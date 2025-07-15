@@ -52,7 +52,7 @@ module vga(input wire CLOCK_50, input wire [1:0] i_sel, output wire o_hsync, out
     
     reg [2:0] color = 3'b0;
     always @(*) begin
-        color = (x*x + y*y < radius*radius) ? {cnt1[6], cnt1[7], cnt1[8]} | 3*{(x == 640 || x == 1 || y == 480 || y == 1) ? 1'b1 : 1'b0} : { 1'b0, 1'b0, 1'b0};
+        color = ((x-320)*(x-320) + (y-240)*(y-240) < radius*radius) ? {1, 1, 1} | 3*{(x == 640 || x == 1 || y == 480 || y == 1) ? 1'b1 : 1'b0} : { 1'b0, 1'b0, 1'b0};
     end
 
 assign {o_red, o_grn, o_blu} = color;
