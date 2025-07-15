@@ -3,13 +3,13 @@
 module mop_level ();
 reg CLOCK_50 = 0;
 always #1 CLOCK_50 <= ~CLOCK_50;
-reg h,v,r,g,b;
+wire h,v,r,g,b;
 top_level top(.CLOCK_50(CLOCK_50), .GPIO_000(h), .GPIO_001(v), .GPIO_007(r), .GPIO_005(g), .GPIO_003(b));
 
 initial begin
-    h = 0, v = 0, r = 0, g = 0, b = 0
     $dumpfile("bitthelfensiemir");
     $dumpvars(0, mop_level);
+    #1000000 $finish;
 end
 
 endmodule
