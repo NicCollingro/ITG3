@@ -24,18 +24,21 @@ reg [11:0] test= 12'd100;
 reg [2:0] rgb = 3'd0;
 always @(posedge clk) begin
     ix[y] <= ix[y] + 1;
-    if ((ix[y] - 5)*(ix[y] - 5)+ (y-5)*(y-5) == test) begin 
-        rgb <= 3'b100;
-    end
-    else begin
-        rgb <= 3'b000;
-    end
 end
 
 assign {o_red, o_grn, o_blu} = rgb;
 
 always @(negedge o_hblank) begin
     y <= (o_vblank) ? 0 : y + 1;
+end
+
+always @(*) begin
+    if ((ix[y] - 5)*(ix[y] - 5)+ (y-5)*(y-5) == test) begin 
+        rgb <= 3'b100;
+    end
+    else begin
+        rgb <= 3'b000;
+    end
 end
 
 endmodule
