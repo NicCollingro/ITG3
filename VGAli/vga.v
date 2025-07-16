@@ -15,6 +15,7 @@ end
 
 reg [11:0] ix;
 reg [11:0] y = 12'd0;
+
 wire o_hblank, o_vblank;
 hsync hippi ( .i_clk(clk), .o_hsync(o_hsync), .o_hblank(o_hblank));
 vsync vsynchi ( .i_clk(o_hsync), .o_vsync(o_vsync), .o_vblank(o_vblank));
