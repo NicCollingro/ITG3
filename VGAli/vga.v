@@ -1,4 +1,3 @@
-`include "hsync.v"
 `include "vsync.v"
 
 module vga (
