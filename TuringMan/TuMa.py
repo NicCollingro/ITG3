@@ -25,6 +25,4 @@ class TuringMachine () :
         self . tpos = 0
         q = self . qi
         for t in range ( maxsteps ) :
-    
-    
-    
+            print ("mach was")
