@@ -21,10 +21,7 @@ module vsync(input i_clk, output reg o_vsync, output reg o_vblank);
 endmodule
 
 module vga(input wire CLOCK_50, input wire [1:0] i_sel, output wire o_hsync, output wire o_vsync, output wire o_red, output wire o_grn, output wire o_blu);
-<<<<<<< HEAD
     reg [14:0] radius = 100;
-=======
->>>>>>> Aljoscha
     reg CLOCK_HALF = 0;
     always @(posedge CLOCK_50) CLOCK_HALF = ~ CLOCK_HALF;
     wire pixclk = `BASECLK;
@@ -32,15 +29,10 @@ module vga(input wire CLOCK_50, input wire [1:0] i_sel, output wire o_hsync, out
     hsync hs(.i_clk(pixclk), .o_hsync(o_hsync), .o_hblank(hblank));
     vsync vs(.i_clk(o_hsync), .o_vsync(o_vsync), .o_vblank(vblank));
 
-<<<<<<< HEAD
     reg [22:0] x = 0;
     reg [22:0] y = 0;
 
     reg [100:0] sum = 0;
-=======
-    reg [11:0] x = 0;
-    reg [11:0] y = 0;
->>>>>>> Aljoscha
 
     always @(posedge pixclk)
         x <= hblank ? 0 : x+1;
@@ -61,15 +53,10 @@ module vga(input wire CLOCK_50, input wire [1:0] i_sel, output wire o_hsync, out
         cnt3 =  cnt3 + 1;
     
     reg [2:0] color = 3'b0;
-<<<<<<< HEAD
 
     always @(*) begin
         sum = (x-320)*(x-320) + (y-240)*(y-240);
         color = ( sum < (radius*radius+cnt1[5:0])+400 && sum > (radius*radius-cnt1[5:0])-400) ? {1'b1, 1'b1, 1'b1} | 3*{(x == 640 || x == 1 || y == 480 || y == 1) ? 1'b1 : 1'b0} : { 1'b0, 1'b0, 1'b0};
-=======
-    always @(*) begin
-        color = {cnt1[6], cnt1[7], cnt1[8]} | 3*{(x == 640 || x == 1 || y == 480 || y == 1) ? 1'b1 : 1'b0};
->>>>>>> Aljoscha
     end
 
 assign {o_red, o_grn, o_blu} = color;
