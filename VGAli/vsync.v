@@ -6,7 +6,7 @@ reg [11:0] cnt = 12'd0;
 
     always @(posedge i_clk) begin
         cnt <= (cnt < `VTOT) ? cnt + 12'd1 : 12'd0;
-        o_vsync <= (`VSRT <= cnt && cnt <= `VEND) ? 0 : 1;
-        o_vblank <= (cnt > `VRES) ? 1 : 0;
+        o_vsync <= (`VSRT <= cnt && cnt < `VEND) ? 0 : 1;
+        o_vblank <= (cnt <= `VRES) ? 0 : 1;
     end
 endmodule
